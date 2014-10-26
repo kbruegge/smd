@@ -1,4 +1,4 @@
-SMD
+SMDd
 ===
 
 Übungsabgaben für SMD
