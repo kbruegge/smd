@@ -2,16 +2,50 @@ __author__ = 'awesome bitches'
 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.ticker import ScalarFormatter, FormatStrFormatter
+#from matplotlib.ticker import ScalarFormatter, FormatStrFormatter
 import random
 import math
+
+def aufgabe_1():
+    #print "Writing a tree and filling a histogram"
+    #
+    # f = TFile("tree.root", "recreate")
+    # t = TTree("name_of_tree", "tree title")
+    #
+    # # create 1 dimensional float arrays (python's float datatype corresponds to c++ doubles)
+    # # as fill variables
+    # x = np.zeros(1, dtype=float)
+    # y = np.zeros(1, dtype=float)
+    # z = np.zeros(1, dtype=float)
+    #
+    # # create the branches and assign the fill-variables to them
+    # t.Branch('x', x, 'uniform/D')
+    #
+    # # create the histograms
+    # hUniform = TH1F("uniform", "uniform", 40, 1, 1001)
+    # h2D = TH2F("B", "Bla", 40, 0, 1000, 40, 0, 1000)
+    #
+    # # create some random numbers, fill them into the fill varibles and call Fill()
+    # for i in range(10000):
+    #     x[0] = random.randint(1, 1001)
+    #     y[0] = random.gauss(x[0], x[0])
+    #     t.Fill()
+    #     hUniform.Fill( x[0] )
+    #     h2D.Fill(x[0], y[0] )
+
+
+    # write the tree into the output file and close the file
+    # f.Write()
+    # f.Close()
+    print("     ROOT stinkt ganz doll. DIE BAYERN AUCH")
+
 
 
 def aufgabe_2():
     filename = "liste.txt"
     names = np.genfromtxt(filename, dtype=np.str)
     firstname, lastname = random.choice(names)
-    print("     Zufälliger Name: ", firstname, lastname)
+    print "     Zufaelliger Name: ", firstname, lastname
 
 
 def aufgabe_3():
@@ -20,11 +54,11 @@ def aufgabe_3():
     for i in range(1, 21):
         x = 1*(10**(-i))
         f = (math.sqrt(9-x) - 3)/x
-        print("     ", f)
+        print "     ", f
 
 
 def aufgabe_4():
-    steps = 50
+    steps = 200
 
     xs = np.linspace(0.9, 1.1, num=steps)
 
@@ -47,7 +81,7 @@ def aufgabe_4():
     bottom.set_ylabel('$f(x) = (1-x)^6$')
     bottom.set_xlabel('$x$')
 
-    #style für die label
+    #style fuer die label
     top.ticklabel_format(axis='y', style='sci', scilimits=(-2, 2))
     bottom.get_yaxis().set_label_coords(-0.1, 0.5)
     top.get_yaxis().set_label_coords(-0.1, 0.5)
@@ -59,7 +93,8 @@ def aufgabe_4():
 
 def main():
     print("SMD Abgabe 1 von M.B und K.B \n")
-
+    print("\nAufgabe 1")
+    aufgabe_1()
     print("\nAufgabe 2")
     aufgabe_2()
     print("\nAufgabe 3")
