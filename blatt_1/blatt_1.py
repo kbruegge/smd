@@ -45,7 +45,7 @@ def aufgabe_2():
     filename = "liste.txt"
     names = np.genfromtxt(filename, dtype=np.str)
     firstname, lastname = random.choice(names)
-    print "     Zufaelliger Name: ", firstname, lastname
+    print("     Zufaelliger Name: ", firstname, lastname)
 
 
 def aufgabe_3():
@@ -54,7 +54,7 @@ def aufgabe_3():
     for i in range(1, 21):
         x = 1*(10**(-i))
         f = (math.sqrt(9-x) - 3)/x
-        print "     ", f
+        print("     ", f)
 
 
 def aufgabe_4():
