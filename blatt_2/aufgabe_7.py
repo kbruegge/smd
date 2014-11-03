@@ -18,6 +18,8 @@ def bin_data(data, title="Histogram"):
     fig.suptitle(title, fontsize=14, fontweight='bold')
     fig.show()
 
+# http://rstl.royalsocietypublishing.org/content/33/381-391/87.full.pdf+html
+#
 
 def main():
     print("Lade Daten..")
@@ -26,8 +28,7 @@ def main():
     bin_data(height, title="Groesse")
     random_data = np.log10(np.random.randint(1, 100, 100000))
     bin_data(random_data, "Zufalls Zahlen")
-    input()
-
+    plt.show()
 
 
 
