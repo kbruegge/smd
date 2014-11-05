@@ -20,7 +20,7 @@ def kond(x):
 def main():
     fig, [top,  bottom] = plt.subplots(nrows=2, ncols=1)
 
-    ts = np.linspace(-1, 1 , 1000)
+    ts = np.linspace(0, 0.0000001 , 1000)
     for e in range(10, 100, 10):
         top.plot(ts, f(ts, e))
     top.set_ylabel("Wirkungsquerschnitt")
