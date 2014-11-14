@@ -14,19 +14,34 @@ def linear_congruential(a = 1601, b = 3456, m = 10000, start = 0,  size = 10000)
 def main():
     print("zufalhhhd")
     a = linear_congruential()
-    fig, top = plt.subplots(nrows=1, ncols=1)
-    top.set_title("Histogram der Zufallszahlen")
-    top.hist(a, bins=100)
-    print(a)
-    print(np.shape(a))
+ #   fig, top = plt.subplots(nrows=1, ncols=1)
+  #  top.set_title("Histogram der Zufallszahlen")
+   # top.hist(a, bins=100)
+    #print(a)
+    #print(np.shape(a))
 
 
 
-    fig = plt.figure(2)
-    ax = fig.add_subplot(211, projection='3d')
-    ax.scatter(a, np.roll(a, 1))
-    ax2 = fig.add_subplot(212, projection="3d")
+    # Twice as wide as it is tall.
+    fig = plt.figure(figsize=plt.figaspect(0.9))
+    #plt.axes(projection="3d")
+    ax1 = fig.add_subplot(2, 2, 1, projection='3d')
+    ax1.set_title("Linear Congruential")
+    ax1.scatter(a, np.roll(a, 1))
+
+    ax2 = fig.add_subplot(2, 2, 2, projection='3d')
+    ax2.set_title("Linear Congruential")
     ax2.scatter(a, np.roll(a,1), np.roll(a, 2))
+
+    a = np.random.random(10000)
+    ax1 = fig.add_subplot(2, 2, 3, projection='3d')
+    ax1.set_title("np.random")
+    ax1.scatter(a, np.roll(a, 1), color="red")
+    ax2 = fig.add_subplot(2, 2, 4, projection='3d')
+    ax2.set_title("np.random")
+    ax2.scatter(a, np.roll(a,1), np.roll(a, 2), color="red")
+    #ax3.scatter(a, np.roll(a, 1) , color="red")
+    #ax4.scatter(a, np.roll(a,1), np.roll(a, 2), color="red")
 
     plt.tight_layout()
     plt.show()
