@@ -12,19 +12,13 @@ def linear_congruential(a = 1601, b = 3456, m = 10000, start = 0,  size = 10000)
     return x/m
 
 def main():
-    print("zufalhhhd")
     a = linear_congruential()
- #   fig, top = plt.subplots(nrows=1, ncols=1)
-  #  top.set_title("Histogram der Zufallszahlen")
-   # top.hist(a, bins=100)
-    #print(a)
-    #print(np.shape(a))
 
 
 
-    # Twice as wide as it is tall.
-    fig = plt.figure(figsize=plt.figaspect(0.9))
-    #plt.axes(projection="3d")
+
+    fig = plt.figure(figsize=(10, 9))
+
     ax1 = fig.add_subplot(2, 2, 1, projection='3d')
     ax1.set_title("Linear Congruential")
     ax1.scatter(a, np.roll(a, 1))
@@ -44,6 +38,7 @@ def main():
     #ax4.scatter(a, np.roll(a,1), np.roll(a, 2), color="red")
 
     plt.tight_layout()
+
     plt.show()
 
 if __name__ == '__main__':
