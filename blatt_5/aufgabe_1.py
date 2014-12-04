@@ -2,60 +2,82 @@ __author__ = 'Kai'
 
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
 from matplotlib.patches import Ellipse
 
-def normal(x, y, mu_x, mu_y, sigma_x, sigma_y):
-    cov = 4.2
-    alpha = 1/(2*np.pi*np.sqrt((sigma_x**2*sigma_y**2 - cov**2)))
-    cor = 0.8
-    exponent = (x-mu_x)**2/(sigma_x**2) + (y-mu_y)**2/(sigma_y**2) - (2*cor*(y-mu_y)*(x-mu_x))/(sigma_x*sigma_y)
+def normal(x, y, mean, covariance_matrix):
+    sigma_x = np.sqrt(covariance_matrix[0,0])
+    sigma_y = np.sqrt(covariance_matrix[1,1])
+    mean_x = mean[0]
+    mean_y = mean[1]
+    cor = covariance_matrix[1,0]/(sigma_y*sigma_x)
+    print("Korrelationskoeffizent: ", cor)
+    alpha = 1/(2*np.pi*sigma_x*sigma_y* np.sqrt(1-cor**2))
+    exponent = (x-mean_x)**2/(sigma_x**2) + (y-mean_y)**2/(sigma_y**2) - (2*cor*(y-mean_y)*(x-mean_x))/(sigma_x*sigma_y)
     return alpha*np.exp(-0.5*(1/(1-cor**2))*exponent)
 
 
 def main():
+    #plotting limits
+    limit_x = -6
+    limit_y = 12
 
-    x = np.linspace(-5, 10, 50)
-    y = np.linspace(-5, 10, 50)
+    #create meshgrid for plotting function
+    x = np.linspace(limit_x, limit_y, 50)
+    y = np.linspace(limit_x, limit_y, 50)
     X, Y = np.meshgrid(x, y)
+
+    #values from assignment
     sigma_x = 3.5
-    sigma_y = 3.4
-    cor = 0.8
-    covariance = 0.1
-    Z = normal(X, Y, 4, 2, sigma_x, sigma_y)
+    sigma_y = 1.5
+    mean_x = 4
+    mean_y = 2
+    mean = [mean_x, mean_y]
+    covariance = 4.2
+    #build covariance matrix
+    covariance_matrix = np.array([[sigma_x**2, covariance],[covariance, sigma_y**2]])
+    #get distribution
+    Z = normal(X, Y, mean, covariance_matrix)
 
-    fig, ax = plt.subplots(nrows=1, ncols=1)
-    t = ax.pcolormesh(X, Y, Z, shading='gouraud')
-    #fig.colorbar(t, ax=ax)
+    fig, top = plt.subplots(nrows=1, ncols=1)
+    top.pcolormesh(X, Y, Z, shading='gouraud')
 
-    # d =  np.random.multivariate_normal(mean, cov, N)
-    # h, ye, xe, misc = ax.hist2d(d[:,0], d[:,1], bins=100)
+    #diagonlize covariance matrix
+    (v_x,v_y),  v = np.linalg.eig(covariance_matrix)
 
+    #components of first eigenvector
+    angle = np.arctan(v[1,0]/v[0,0])
+    print("Winkel zur x-Achse: ", np.rad2deg(angle))
 
-    angle = 0.5 * np.arctan(2* cor * sigma_x * sigma_y/(sigma_x**2 - sigma_y**2))
-    cov = [[sigma_x**2, covariance], [covariance, sigma_y**2]]
-    rot = [[np.cos(angle), np.sin(angle) ], [-np.sin(angle), np.cos(angle)]]
+    #eigen values are the sigmas
+    width = np.sqrt(v_x)*2
+    length = np.sqrt(v_y)*2
 
-    matrix = np.dot(np.transpose(rot), np.dot(cov, rot))
-
-    print("MATRIX: ", matrix)
-
-    w, v = np.linalg.eig(cov)
-    matrix = np.dot(np.transpose(v), np.dot(cov, v))
-
-    print("NEUE AMTRIDJFSDAM: ", matrix)
-
-
-
-    e = Ellipse(xy=(4, 2), width=matrix[0,0], height= matrix[1,1], angle= np.rad2deg(angle))
+    print("Ellipsen größen width, length: ", width, length)
+    e = Ellipse(xy=(mean_x, mean_y), width=width, height=length, angle= np.rad2deg(angle))
     e.set_color("white")
-    e.set_alpha(0.8)
-    ax.add_artist(e)
+    e.set_alpha(0.7)
+    top.add_artist(e)
 
-    #draw a line
-    x= [4,10]
-    y= [2, 2 + np.tan(angle)*6]
-    plt.plot(x, y, color="white", linewidth=2)
+
+    length_x = 0.5*width*np.cos(angle)
+    y_2 = mean_y + np.tan(angle)*length_x
+    x_2 = mean_x +length_x
+    top.plot([mean_x, x_2],[mean_y, y_2] , color='white', linewidth=2)
+
+
+
+    angle = np.pi/2 + angle
+    length_x = 0.5*length*np.cos(angle)
+    y_2 = mean_y + np.tan(angle)*length_x
+    x_2 = mean_x + length_x
+    top.plot([mean_x, x_2],[mean_y, y_2] , color='white', linewidth=2)
+
+
+
+    #draw points
+    top.errorbar([mean_x], [mean_y], xerr=sigma_x, yerr=sigma_y, linestyle='o', color="white", ecolor='white')
+    top.text(mean_x + 1.5, mean_y - 1.5, r'$(\mu_x + \sigma_y, \mu_y + \sigma_y)$', fontsize=12, color="white")
+    plt.title("2D- Gaußverteilung")
     plt.show()
 
 

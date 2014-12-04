@@ -45,7 +45,6 @@ def main():
 
 
 
-    print(c)
     h, ye, xe, misc = top.hist2d(a[:,0], a[:,1], bins=40)
     fig.colorbar(misc, ax=top)
     h, ye, xe, misc = center.hist2d(b[:,0], b[:,1], bins=40)
@@ -53,13 +52,7 @@ def main():
     h, ye, xe, misc = bottom.hist2d(c[:,0], c[:,1], bins=40)
     fig.colorbar(misc, ax=bottom)
 
-
-
-
     plt.show()
-
-
-
 
 if __name__ == '__main__':
     main()
