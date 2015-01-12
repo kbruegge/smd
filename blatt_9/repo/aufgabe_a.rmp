@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process version="6.2.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="6.2.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <parameter key="parallelize_main_process" value="false"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve MCs" width="90" x="112" y="120">
+        <parameter key="repository_entry" value="//smdRepo/daten/MCs"/>
+      </operator>
+      <operator activated="true" class="weka:W-RandomForest" compatibility="5.3.001" expanded="true" height="76" name="W-RandomForest" width="90" x="313" y="120">
+        <parameter key="I" value="100.0"/>
+        <parameter key="K" value="0.0"/>
+        <parameter key="S" value="1.0"/>
+        <parameter key="D" value="false"/>
+      </operator>
+      <connect from_op="Retrieve MCs" from_port="output" to_op="W-RandomForest" to_port="training set"/>
+      <connect from_op="W-RandomForest" from_port="model" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>

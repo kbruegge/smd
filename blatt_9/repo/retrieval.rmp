@@ -14,27 +14,27 @@
     <parameter key="encoding" value="SYSTEM"/>
     <parameter key="parallelize_main_process" value="false"/>
     <process expanded="true">
-      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve Gammas" width="90" x="179" y="210">
+      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve Gammas" width="90" x="112" y="345">
         <parameter key="repository_entry" value="//smdRepo/daten/Gammas"/>
       </operator>
-      <operator activated="true" class="generate_attributes" compatibility="6.2.000" expanded="true" height="76" name="Generate Attributes (2)" width="90" x="313" y="255">
+      <operator activated="true" class="generate_attributes" compatibility="6.2.000" expanded="true" height="76" name="Generate Attributes (2)" width="90" x="246" y="345">
         <list key="function_descriptions">
           <parameter key="label" value="&quot;gamma&quot;"/>
         </list>
         <parameter key="use_standard_constants" value="true"/>
         <parameter key="keep_all" value="true"/>
       </operator>
-      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve Protonen" width="90" x="179" y="300">
+      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve Protonen" width="90" x="112" y="255">
         <parameter key="repository_entry" value="//smdRepo/daten/Protonen"/>
       </operator>
-      <operator activated="true" class="generate_attributes" compatibility="6.2.000" expanded="true" height="76" name="Generate Attributes" width="90" x="313" y="390">
+      <operator activated="true" class="generate_attributes" compatibility="6.2.000" expanded="true" height="76" name="Generate Attributes" width="90" x="246" y="255">
         <list key="function_descriptions">
           <parameter key="label" value="&quot;proton&quot;"/>
         </list>
         <parameter key="use_standard_constants" value="true"/>
         <parameter key="keep_all" value="true"/>
       </operator>
-      <operator activated="true" class="append" compatibility="6.2.000" expanded="true" height="94" name="Append" width="90" x="447" y="300">
+      <operator activated="true" class="append" compatibility="6.2.000" expanded="true" height="94" name="Append" width="90" x="514" y="300">
         <parameter key="datamanagement" value="double_array"/>
         <parameter key="merge_type" value="all"/>
       </operator>
