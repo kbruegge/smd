@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process version="6.2.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="6.2.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <parameter key="parallelize_main_process" value="false"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve MCs" width="90" x="45" y="75">
+        <parameter key="repository_entry" value="daten/MCs"/>
+      </operator>
+      <operator activated="true" class="sample_stratified" compatibility="6.2.000" expanded="true" height="76" name="Sample (Stratified)" width="90" x="179" y="75">
+        <parameter key="sample" value="relative"/>
+        <parameter key="sample_size" value="2000"/>
+        <parameter key="sample_ratio" value="0.2"/>
+        <parameter key="use_local_random_seed" value="false"/>
+        <parameter key="local_random_seed" value="1992"/>
+      </operator>
+      <operator activated="true" class="weka:W-RandomForest" compatibility="5.3.001" expanded="true" height="76" name="W-RandomForest" width="90" x="313" y="75">
+        <parameter key="I" value="70.0"/>
+        <parameter key="K" value="0.0"/>
+        <parameter key="S" value="1.0"/>
+        <parameter key="depth" value="10"/>
+        <parameter key="D" value="false"/>
+      </operator>
+      <operator activated="true" class="apply_model" compatibility="6.2.000" expanded="true" height="76" name="Apply Model" width="90" x="45" y="210">
+        <list key="application_parameters"/>
+        <parameter key="create_view" value="false"/>
+      </operator>
+      <operator activated="true" class="loop_parameters" compatibility="6.2.000" expanded="true" height="76" name="Loop Parameters" width="90" x="246" y="210">
+        <list key="parameters">
+          <parameter key="Drop Uncertain Predictions.min_confidence" value="[0.0;1.0;30;linear]"/>
+        </list>
+        <parameter key="error_handling" value="fail on error"/>
+        <parameter key="synchronize" value="false"/>
+        <parameter key="parallelize_subprocess" value="false"/>
+        <process expanded="true">
+          <operator activated="true" class="drop_uncertain_predictions" compatibility="6.2.000" expanded="true" height="76" name="Drop Uncertain Predictions" width="90" x="45" y="30">
+            <parameter key="class_handling" value="balanced"/>
+            <parameter key="min_confidence" value="1.0"/>
+            <list key="min_confidences"/>
+          </operator>
+          <operator activated="true" class="replace_missing_values" compatibility="6.2.000" expanded="true" height="94" name="Replace Missing Values" width="90" x="179" y="30">
+            <parameter key="return_preprocessing_model" value="false"/>
+            <parameter key="create_view" value="false"/>
+            <parameter key="attribute_filter_type" value="single"/>
+            <parameter key="attribute" value="prediction(label)"/>
+            <parameter key="attributes" value=""/>
+            <parameter key="use_except_expression" value="false"/>
+            <parameter key="value_type" value="attribute_value"/>
+            <parameter key="use_value_type_exception" value="false"/>
+            <parameter key="except_value_type" value="time"/>
+            <parameter key="block_type" value="attribute_block"/>
+            <parameter key="use_block_type_exception" value="false"/>
+            <parameter key="except_block_type" value="value_matrix_row_start"/>
+            <parameter key="invert_selection" value="false"/>
+            <parameter key="include_special_attributes" value="true"/>
+            <parameter key="default" value="value"/>
+            <list key="columns"/>
+            <parameter key="replenishment_value" value="proton"/>
+          </operator>
+          <operator activated="true" class="performance_binominal_classification" compatibility="6.2.000" expanded="true" height="76" name="perf" width="90" x="179" y="210">
+            <parameter key="main_criterion" value="first"/>
+            <parameter key="accuracy" value="true"/>
+            <parameter key="classification_error" value="false"/>
+            <parameter key="kappa" value="false"/>
+            <parameter key="AUC (optimistic)" value="false"/>
+            <parameter key="AUC" value="false"/>
+            <parameter key="AUC (pessimistic)" value="false"/>
+            <parameter key="precision" value="false"/>
+            <parameter key="recall" value="true"/>
+            <parameter key="lift" value="false"/>
+            <parameter key="fallout" value="false"/>
+            <parameter key="f_measure" value="false"/>
+            <parameter key="false_positive" value="true"/>
+            <parameter key="false_negative" value="true"/>
+            <parameter key="true_positive" value="true"/>
+            <parameter key="true_negative" value="true"/>
+            <parameter key="sensitivity" value="false"/>
+            <parameter key="specificity" value="true"/>
+            <parameter key="youden" value="false"/>
+            <parameter key="positive_predictive_value" value="false"/>
+            <parameter key="negative_predictive_value" value="false"/>
+            <parameter key="psep" value="false"/>
+            <parameter key="skip_undefined_labels" value="true"/>
+            <parameter key="use_example_weights" value="true"/>
+          </operator>
+          <operator activated="true" class="log" compatibility="6.2.000" expanded="true" height="76" name="log" width="90" x="380" y="165">
+            <list key="log">
+              <parameter key="accuracy" value="operator.perf.value.accuracy"/>
+              <parameter key="conf" value="operator.Drop Uncertain Predictions.parameter.min_confidence"/>
+              <parameter key="recall" value="operator.perf.value.recall"/>
+              <parameter key="false_negative" value="operator.perf.value.false_negative"/>
+              <parameter key="false_positive" value="operator.perf.value.false_positive"/>
+              <parameter key="true_negative" value="operator.perf.value.true_negative"/>
+              <parameter key="true_positive" value="operator.perf.value.true_positive"/>
+              <parameter key="specificity" value="operator.perf.value.specificity"/>
+            </list>
+            <parameter key="sorting_type" value="none"/>
+            <parameter key="sorting_k" value="100"/>
+            <parameter key="persistent" value="false"/>
+          </operator>
+          <operator activated="true" class="multiply" compatibility="6.2.000" expanded="true" height="94" name="Multiply" width="90" x="447" y="30"/>
+          <connect from_port="input 1" to_op="Drop Uncertain Predictions" to_port="example set input"/>
+          <connect from_op="Drop Uncertain Predictions" from_port="example set output" to_op="Replace Missing Values" to_port="example set input"/>
+          <connect from_op="Replace Missing Values" from_port="example set output" to_op="perf" to_port="labelled data"/>
+          <connect from_op="perf" from_port="performance" to_op="log" to_port="through 1"/>
+          <connect from_op="log" from_port="through 1" to_op="Multiply" to_port="input"/>
+          <connect from_op="Multiply" from_port="output 1" to_port="performance"/>
+          <connect from_op="Multiply" from_port="output 2" to_port="result 1"/>
+          <portSpacing port="source_input 1" spacing="0"/>
+          <portSpacing port="source_input 2" spacing="0"/>
+          <portSpacing port="sink_performance" spacing="0"/>
+          <portSpacing port="sink_result 1" spacing="0"/>
+          <portSpacing port="sink_result 2" spacing="0"/>
+        </process>
+      </operator>
+      <operator activated="true" class="log_to_data" compatibility="6.2.000" expanded="true" height="94" name="Log to Data (2)" width="90" x="380" y="300">
+        <parameter key="log_name" value="log"/>
+      </operator>
+      <operator activated="true" class="generate_attributes" compatibility="6.2.000" expanded="true" height="76" name="Generate Attributes" width="90" x="514" y="300">
+        <list key="function_descriptions">
+          <parameter key="E_gamma" value="true_positive/(true_positive+false_negative)"/>
+          <parameter key="E_proton" value="true_negative/(true_negative+false_positive)"/>
+          <parameter key="Q" value="recall/sqrt(specificity)"/>
+          <parameter key="AQ" value="recall/specificity"/>
+          <parameter key="N" value="true_positive + true_negative +false_negative + false_positive"/>
+          <parameter key="S" value="(true_positive +false_negative)/N"/>
+          <parameter key="P" value="(true_positive + false_positive)/N"/>
+          <parameter key="MCC" value="(true_positive/N - S*P)/sqrt(P*S*(1-S)*(1-P))"/>
+          <parameter key="Q_neu" value="recall/(sqrt(false_positive/(true_negative+false_positive)))"/>
+          <parameter key="Q_neu_2" value="recall/(sqrt(false_positive/(false_negative + true_positive)))"/>
+        </list>
+        <parameter key="use_standard_constants" value="true"/>
+        <parameter key="keep_all" value="true"/>
+      </operator>
+      <operator activated="true" class="filter_examples" compatibility="6.2.000" expanded="true" height="94" name="Filter Examples" width="90" x="581" y="120">
+        <parameter key="parameter_expression" value=""/>
+        <parameter key="condition_class" value="custom_filters"/>
+        <parameter key="invert_filter" value="false"/>
+        <list key="filters_list">
+          <parameter key="filters_entry_key" value="Q_neu.is_not_missing."/>
+          <parameter key="filters_entry_key" value="Q_neu.lt.10000"/>
+        </list>
+        <parameter key="filters_logic_and" value="true"/>
+        <parameter key="filters_check_metadata" value="true"/>
+      </operator>
+      <connect from_op="Retrieve MCs" from_port="output" to_op="Sample (Stratified)" to_port="example set input"/>
+      <connect from_op="Sample (Stratified)" from_port="example set output" to_op="W-RandomForest" to_port="training set"/>
+      <connect from_op="Sample (Stratified)" from_port="original" to_op="Apply Model" to_port="unlabelled data"/>
+      <connect from_op="W-RandomForest" from_port="model" to_op="Apply Model" to_port="model"/>
+      <connect from_op="Apply Model" from_port="labelled data" to_op="Loop Parameters" to_port="input 1"/>
+      <connect from_op="Loop Parameters" from_port="result 1" to_op="Log to Data (2)" to_port="through 1"/>
+      <connect from_op="Log to Data (2)" from_port="exampleSet" to_op="Generate Attributes" to_port="example set input"/>
+      <connect from_op="Generate Attributes" from_port="example set output" to_op="Filter Examples" to_port="example set input"/>
+      <connect from_op="Filter Examples" from_port="example set output" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>

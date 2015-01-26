@@ -28,12 +28,12 @@
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="6.2.000" expanded="true" height="94" name="Multiply (3)" width="90" x="313" y="165"/>
-      <operator activated="true" class="x_validation" compatibility="6.2.000" expanded="true" height="130" name="Validation" width="90" x="447" y="75">
+      <operator activated="true" class="multiply" compatibility="6.2.000" expanded="true" height="94" name="Multiply (3)" width="90" x="313" y="75"/>
+      <operator activated="true" class="x_validation" compatibility="6.2.000" expanded="true" height="130" name="Validation" width="90" x="447" y="30">
         <parameter key="create_complete_model" value="false"/>
         <parameter key="average_performances_only" value="true"/>
         <parameter key="leave_one_out" value="false"/>
-        <parameter key="number_of_validations" value="2"/>
+        <parameter key="number_of_validations" value="5"/>
         <parameter key="sampling_type" value="stratified sampling"/>
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
@@ -44,10 +44,10 @@
             <parameter key="laplace_correction" value="true"/>
           </operator>
           <operator activated="true" class="weka:W-RandomForest" compatibility="5.3.001" expanded="true" height="76" name="W-RandomForest" width="90" x="112" y="120">
-            <parameter key="I" value="15.0"/>
+            <parameter key="I" value="40.0"/>
             <parameter key="K" value="0.0"/>
             <parameter key="S" value="1.0"/>
-            <parameter key="depth" value="5"/>
+            <parameter key="depth" value="10"/>
             <parameter key="D" value="false"/>
           </operator>
           <connect from_port="training" to_op="W-RandomForest" to_port="training set"/>
@@ -227,7 +227,7 @@
         <parameter key="use_standard_constants" value="true"/>
         <parameter key="keep_all" value="true"/>
       </operator>
-      <operator activated="true" class="filter_examples" compatibility="6.2.000" expanded="true" height="94" name="Filter Examples" width="90" x="648" y="300">
+      <operator activated="true" class="filter_examples" compatibility="6.2.000" expanded="true" height="94" name="Filter Examples" width="90" x="648" y="255">
         <parameter key="parameter_expression" value=""/>
         <parameter key="condition_class" value="custom_filters"/>
         <parameter key="invert_filter" value="false"/>

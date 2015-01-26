@@ -18,22 +18,44 @@
     <parameter key="encoding" value="SYSTEM"/>
     <parameter key="parallelize_main_process" value="false"/>
     <process expanded="true">
-      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve MCs" width="90" x="45" y="165">
+      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve MCs" width="90" x="45" y="75">
         <parameter key="repository_entry" value="daten/MCs"/>
       </operator>
-      <operator activated="true" class="sample_stratified" compatibility="6.2.000" expanded="true" height="76" name="Sample (Stratified)" width="90" x="179" y="165">
+      <operator activated="true" class="sample_stratified" compatibility="6.2.000" expanded="true" height="76" name="Sample (Stratified)" width="90" x="45" y="165">
         <parameter key="sample" value="relative"/>
         <parameter key="sample_size" value="2000"/>
         <parameter key="sample_ratio" value="0.2"/>
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
       </operator>
-      <operator activated="true" class="multiply" compatibility="6.2.000" expanded="true" height="94" name="Multiply (3)" width="90" x="313" y="165"/>
-      <operator activated="true" class="x_validation" compatibility="6.2.000" expanded="true" height="130" name="Validation" width="90" x="447" y="75">
+      <operator activated="true" class="generate_function_set" compatibility="6.2.000" expanded="true" height="76" name="Generate Function Set" width="90" x="179" y="165">
+        <parameter key="keep_all" value="true"/>
+        <parameter key="use_plus" value="false"/>
+        <parameter key="use_diff" value="false"/>
+        <parameter key="use_mult" value="false"/>
+        <parameter key="use_div" value="false"/>
+        <parameter key="use_reciprocals" value="false"/>
+        <parameter key="use_square_roots" value="false"/>
+        <parameter key="use_power_functions" value="false"/>
+        <parameter key="use_sin" value="false"/>
+        <parameter key="use_cos" value="true"/>
+        <parameter key="use_tan" value="false"/>
+        <parameter key="use_atan" value="false"/>
+        <parameter key="use_exp" value="false"/>
+        <parameter key="use_log" value="false"/>
+        <parameter key="use_absolute_values" value="true"/>
+        <parameter key="use_min" value="false"/>
+        <parameter key="use_max" value="false"/>
+        <parameter key="use_ceil" value="false"/>
+        <parameter key="use_floor" value="false"/>
+        <parameter key="use_rounded" value="false"/>
+      </operator>
+      <operator activated="true" class="multiply" compatibility="6.2.000" expanded="true" height="94" name="Multiply (3)" width="90" x="313" y="75"/>
+      <operator activated="true" class="x_validation" compatibility="6.2.000" expanded="true" height="130" name="Validation" width="90" x="447" y="30">
         <parameter key="create_complete_model" value="false"/>
         <parameter key="average_performances_only" value="true"/>
         <parameter key="leave_one_out" value="false"/>
-        <parameter key="number_of_validations" value="2"/>
+        <parameter key="number_of_validations" value="5"/>
         <parameter key="sampling_type" value="stratified sampling"/>
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
@@ -44,10 +66,10 @@
             <parameter key="laplace_correction" value="true"/>
           </operator>
           <operator activated="true" class="weka:W-RandomForest" compatibility="5.3.001" expanded="true" height="76" name="W-RandomForest" width="90" x="112" y="120">
-            <parameter key="I" value="15.0"/>
+            <parameter key="I" value="40.0"/>
             <parameter key="K" value="0.0"/>
             <parameter key="S" value="1.0"/>
-            <parameter key="depth" value="5"/>
+            <parameter key="depth" value="10"/>
             <parameter key="D" value="false"/>
           </operator>
           <connect from_port="training" to_op="W-RandomForest" to_port="training set"/>
@@ -204,7 +226,7 @@
           <portSpacing port="sink_averagable 3" spacing="0"/>
         </process>
       </operator>
-      <operator activated="true" class="apply_model" compatibility="6.2.000" expanded="true" height="76" name="Apply Model (2)" width="90" x="715" y="165">
+      <operator activated="true" class="apply_model" compatibility="6.2.000" expanded="true" height="76" name="Apply Model (2)" width="90" x="648" y="120">
         <list key="application_parameters"/>
         <parameter key="create_view" value="false"/>
       </operator>
@@ -227,7 +249,7 @@
         <parameter key="use_standard_constants" value="true"/>
         <parameter key="keep_all" value="true"/>
       </operator>
-      <operator activated="true" class="filter_examples" compatibility="6.2.000" expanded="true" height="94" name="Filter Examples" width="90" x="648" y="300">
+      <operator activated="true" class="filter_examples" compatibility="6.2.000" expanded="true" height="94" name="Filter Examples" width="90" x="648" y="255">
         <parameter key="parameter_expression" value=""/>
         <parameter key="condition_class" value="custom_filters"/>
         <parameter key="invert_filter" value="false"/>
@@ -239,7 +261,8 @@
         <parameter key="filters_check_metadata" value="true"/>
       </operator>
       <connect from_op="Retrieve MCs" from_port="output" to_op="Sample (Stratified)" to_port="example set input"/>
-      <connect from_op="Sample (Stratified)" from_port="example set output" to_op="Multiply (3)" to_port="input"/>
+      <connect from_op="Sample (Stratified)" from_port="example set output" to_op="Generate Function Set" to_port="example set input"/>
+      <connect from_op="Generate Function Set" from_port="example set output" to_op="Multiply (3)" to_port="input"/>
       <connect from_op="Multiply (3)" from_port="output 1" to_op="Apply Model (2)" to_port="unlabelled data"/>
       <connect from_op="Multiply (3)" from_port="output 2" to_op="Validation" to_port="training"/>
       <connect from_op="Validation" from_port="model" to_op="Apply Model (2)" to_port="model"/>

@@ -2,7 +2,10 @@
 <process version="6.2.000">
   <context>
     <input/>
-    <output/>
+    <output>
+      <location>results/q_werte_einfach_daten</location>
+      <location>results/q_werte_einfach</location>
+    </output>
     <macros/>
   </context>
   <operator activated="true" class="process" compatibility="6.2.000" expanded="true" name="Process">
@@ -20,7 +23,7 @@
       <operator activated="true" class="sample_stratified" compatibility="6.2.000" expanded="true" height="76" name="Sample (Stratified)" width="90" x="179" y="210">
         <parameter key="sample" value="relative"/>
         <parameter key="sample_size" value="6000"/>
-        <parameter key="sample_ratio" value="1.0"/>
+        <parameter key="sample_ratio" value="0.1"/>
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
       </operator>
@@ -28,6 +31,7 @@
         <parameter key="I" value="100.0"/>
         <parameter key="K" value="0.0"/>
         <parameter key="S" value="1.0"/>
+        <parameter key="depth" value="10"/>
         <parameter key="D" value="false"/>
       </operator>
       <operator activated="false" class="parallel:x_validation_parallel" compatibility="5.3.000" expanded="true" height="112" name="Validation" width="90" x="447" y="30">
@@ -245,6 +249,7 @@
           <parameter key="S" value="(true_positive +false_negative)/N"/>
           <parameter key="P" value="(true_positive + false_positive)/N"/>
           <parameter key="MCC" value="(true_positive/N - S*P)/sqrt(P*S*(1-S)*(1-P))"/>
+          <parameter key="deltaQ" value="sqrt((0.0079)*(0.0079)/(E_proton) - (E_gamma*E_gamma * 0.0128*0.0128)/(2*E_proton*E_proton*E_proton))"/>
         </list>
         <parameter key="use_standard_constants" value="true"/>
         <parameter key="keep_all" value="true"/>
