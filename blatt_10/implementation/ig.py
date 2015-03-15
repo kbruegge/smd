@@ -8,7 +8,7 @@ import matplotlib.pylab as plt
 
 def main():
     temp, forecast, humidity = np.genfromtxt("tabelle.csv", delimiter=",", usecols=[0,1,2], unpack=True)
-    wind, label = np.genfromtxt("tabelle.csv", delimiter=",", usecols=[3,4], unpack=True, dtype=np.bool)
+    wind, label = np.genfromtxt("tabelle.csv", delimiter=",", usecols=[3, 4], unpack=True, dtype=np.bool)
 
     ig = information_gain_binary(wind, label)
     print("Entropy of label bits: " + str(ig))

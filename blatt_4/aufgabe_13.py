@@ -1,5 +1,7 @@
 __author__ = 'Kai'
 
+import matplotlib
+matplotlib.use('Qt4Agg')
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -12,7 +14,7 @@ def linear_congruential(a = 1601, b = 3456, m = 10000, start = 0,  size = 10000)
     return x/m
 
 def main():
-    a = linear_congruential()
+    a = linear_congruential(size=5000)
 
 
 
@@ -25,9 +27,9 @@ def main():
 
     ax2 = fig.add_subplot(2, 2, 2, projection='3d')
     ax2.set_title("Linear Congruential")
-    ax2.scatter(a, np.roll(a,1), np.roll(a, 2))
+    ax2.scatter(a, np.roll(a,2), np.roll(a, 4))
 
-    a = np.random.random(10000)
+    a = np.random.random(1000)
     ax1 = fig.add_subplot(2, 2, 3, projection='3d')
     ax1.set_title("np.random")
     ax1.scatter(a, np.roll(a, 1), color="red")
