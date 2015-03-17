@@ -193,7 +193,7 @@ Es folgt eine Sammlung von wichtigen Veteilungen und deren Eigenschaften
 *  Dichtefunktion  $f(x) = \frac{1}{b-a}$
 *  Erwartungswert  $E(X) = \frac{b-a}{2}$
 
-### Dreiecksverteilung und
+### Dreiecksverteilung
 
 Entsteht durch eine Zufallsvariable $S = X_1 +  X_2$ wenn $X_1, X_2$ aus einer gleichverteilung Stammen.
 Die Dichtefunktion ist kompliziert. Der Erwartungswert bleibt aber bei  $E(S) = \frac{b-a}{2}$
@@ -445,18 +445,26 @@ Beweis erfolgt mal wieder durch Plot.
 
 
 ## Trennen von Datensätzen
-Die Standardaufgabe in der Physik ist die Trennung von Signal und Untergrund in seinen Messdaten.
+<!-- Die Standardaufgabe in der Physik ist die Trennung von Signal und Untergrund in seinen Messdaten. -->
+
+Im weiteren beschränken wir uns auf binäre Entscheidungsprobleme.
+
+Unsere Daten bestehen aus $N$ Beobachtungen $\vec{X}^{(i)} $ wobei jede Vektorkomponente
+$\vec{X}_k $eine Eigenschaft/Feature/Parameter  oder auch Attribut codiert. Jede Komponente
+ist also die Realisierung einer Zufallsvariable.
+Die Trainingsmenge sind die Tupel $(\vec{X}, Y)$ wobei $Y$ die Zufallsvariable ist,  welche
+die Klassenzugehörigkeit codiert. Das Klassenlabel wird häufig den Werten 0 oder 1 codiert.
+
 Dafür gibt es diverse Verfahren. Allen gemeinsam ist die Messung der Trennungsqualität über
 die Zahlen aus der ConfusionMatrix. Um statistische Fehler zu bekommen und Overfitting zu vermeiden werden
-Resampling Methoden wie k-Fold Cross Validation und Bootstrapping verwendet.
+Resampling Methoden wie k-Fold Cross Validation und Bootstrapping verwendet. Bei maschinellen Lernverfahren
+wird allgemein zwischen Supervised und Unsupervised Methoden unterschieden.
+
 
 ### Lineare Fischer Diskriminanz
 Vorsicht. Allgemeine  LDA und Fisher Diskriminanz machen unterschiedliche Annahmen an die Varianzen in den Klassen.
 Wird aber haüfig nicht unterschieden.
 
-Gegeben seine $N$ Beobachtungen $\vec{X} $ wobei jede Vektorkomponente $\vec{X}_k $eine Eigenschaft/Feature/Parameter oder wie
-auch immer ist. Die Trainingsmenge sind die Tupel $(\vec{X}, y)$ wobei $y$ die Zufallsvariable ist welche
-die Klassenzugehörigkeit codiert.
 
 Die Entscheidungsfunktion für irgendeine Beobachtung $\vec{X}^{(i)}$ bei LDA sieht allgemein einfach so aus:
 
@@ -464,14 +472,15 @@ $$
 \vec{w} \cdot \vec{X}^{(i)} > c
 $$
 
-Sei $V_y$ die Kovarianzmatrix der jeweiligen Klassenrealisierung $y$. Zunächst in Komponentenschreibweise
+Sei $V$ die Kovarianzmatrix aller Daten und $V_Y$ die Kovarianzmatrix nur der Daten,
+die zur Klasse $Y$ gehören. Zunächst in Komponentenschreibweise
 
 $$
 V_{k,l} = \frac 1N  \sum_N (\vec{X}_k - \vec{\mu_X}_k) (\vec{X}_l - \vec{\mu_X}_l)
 $$
 
 Wenn $\underline{X}$ die Matrix aller Beobachtungen ist und $\underline{\mu_x}$ die Matrix der Mittelwerte
-für jedes Feature (in jeder Zeile stehen die selben Werte) dann gilt in Matrix schreibweise
+für jedes Feature (die erste Zeile Wiederholt sich) dann gilt in Matrix schreibweise
 
 $$
 V = \frac 1N (\underline{X} - \underline{\mu_x})^T  \cdot (\underline{X} - \underline{\mu_x})
@@ -480,7 +489,7 @@ $$
 Der Gewichtsvektor $\vec{w} $ wird dann gebildet mit
 
 $$
-\vec{w}  = ( V_{y_1} + V_{y_2} )^{-1} (\underline{\mu_{x, y_2}} - \underline{\mu_{x, y_1}})
+\vec{w}  = ( V_{0} + V_{1} )^{-1} (\underline{\mu_{x, 0}} - \underline{\mu_{x, 1}})
 $$
 
 Wie die Schwelle $c$ definiert ist, ist nicht ganz eindeutig und sollte je nach Problem unterschiedlich gewählt
@@ -518,6 +527,79 @@ Das führt zu folgendem Plot
 
 ![](./fisher.png)
 
+### Naive Bayes
+
+Ist tatsächlich wesentlich komplizierter als in der Vorlesung geschrieben. Was da steht macht
+auch mal wieder nicht ganz so viel Sinn. Wichtig ist das bei dieser Methode eine
+Wahrscheinlichkeitsdichte angenommen werden muss aus der die Messwerte kommen.
+Für nominale Werte könnte man eine Gleichverteilung annehmen. Das geht nur solange gut
+wie man die Gleichverteilung aus den Trainingsdaten schätzen kann. Für ein neuen Wert der
+noch nicht im Trainingsdatensatz vorhanden war geht das natürlich schief.
+
+
+### k-NN - Regression und Klassifikation
+Alles was man benötigt ist eine Metrik $d$ auf dem Parameterraum um Abstände zu bestimmen.
+Gegeben ein unklassfiziertes Beispiel $\vec {X}_{\text{Neu}}$ und eine Trainingsmenge
+aus Tupeln $(Y,\vec{X})$ bestimme im Fall der Regression den Mittelwert
+der $k$ nächsten Nachbarn zu  $\vec {X}_{\text{Neu}}$
+
+$$
+Y_{\text{Neu}} = \frac 1k \sum_{\text{k Nächste Nachbarn}} Y_i
+$$
+
+Falls eine Klassifikationsaufgabe gelöst werden soll wird das häufigste Label der
+nächsten Nachbarn verwendet.
+
+gegensätzlich zur Behauptung aus der Vroelsung und der Übung müssen die Daten
+dafür **nicht** sortiert werden. Entsprechend schwierig wird ein Laufzeit vergleich.
+
+### Entscheidungsbaum Algorithmen
+
+Im folgenden Abschnitt sind alle Einheiten in Bits. Es wird also der Logarithmus Dualis
+verwendet.
+
+Da Entscheidungsprozesse in logischer Syntax für Menschen etwas schwer zu lesen sind gibt
+es die wunderbare Darstellung als Baum. Interesant ist die automatische Generierung
+der Entscheidungsfunktion an den Knoten eines Baumes aus Trainingsbeispielen. An jedem
+Knoten muss ein Attribut ausgewählt werden anhand dessen die Trainingsmenge in
+Teilmengen aufgeteilt wird. Es soll das *wichtigste* Attribute ausgewählt werden.
+Das passiert in den allermeisten Fällen über die Größe namens **Information Gain**.
+
+Für eine Zufallsvariable $Y$ mit dem Alphabet $Z$ (also alle möglichen Werte der Codierung)
+ist die Entropie definiert als der Erwartungswert der Information
+
+$$ H(Y) = - \sum_{z \in Z} P(Y =z) \log_2{P(Y = z)}. $$
+
+
+Der Information Gain ist definiert als die Änderung der Entropie der Zielvariable $Y$
+bedingt einer weiteren Zufallsvariable $X$. Also einer Komponente aus unserem
+Datenvektor.
+
+$$ IG(Y,X) = H(Y) - H(Y|X).  $$
+
+Mit der bedingten Entropie
+$$
+\begin{aligned}
+H(Y|X)  &= \sum_{m \in M} P(X=m) H(Y | X = m)  \\
+ &= - \sum_{m \in M}P(X=m) \sum_{z \in Z} P(Y = z|X= m)\log{P(Y = z|X = m)}
+\end{aligned}
+$$
+
+Ganz grob gesprochen sagt diese Größe aus wieviel Information bezüglich der Zielvariable
+gewonnen wird wenn man den Wert des Attributes $X$ kennt. Man wählt also
+dasjenige Attribut aus mit dem der IG am größten ist.
+
+Bei kontinuierlichen Attributwerten, also bei Rellen Zufallsvariablen $X$, können die
+Daten anhand eines Schnittes in zwei Teilmengen aufgeteilt werden. Um den richtigen
+Schnitt zu finden wird einmal über jeden Attributwert aus der Trainingsmenge iteriert und
+der IG für jeden Wert bestimmt.  Es sei darauf hingewiesen das die Entropie wie sie hier
+definiert ist natürlich nur für Zufallsvariablen gilt die diskrete Werte annehmen. Wir können
+den Trick nur anwenden weil unsere Daten immer abzählbar bleiben.
+
+### Ensemble Methoden (Bagging)
+TODO
+#### Random Forest
+TODO
 
 ##Dimensionsreduktion
 
@@ -741,7 +823,8 @@ $r = X a - y$. Mit der Matrix
 $$
 X = \begin{pmatrix}
     \cos(x_1) & \sin(x_1) \\
-    \cos(x_2) & \sin(x_2)
+    \cos(x_2) & \sin(x_2) \\
+    \vdots & \vdots \\
   \end{pmatrix}
 $$
 
@@ -750,18 +833,75 @@ $$
 ### Maximum Likelihood Methode
 
 Man hat $N$ unabhängige  Messungen von Variablen (Vektoren) $X_i$ als Realisierung einer Zufallsvariable mit
- bekannter Wahrscheinlichkeitsdichte $f(X_i, a)$ die von dem Parametervektor a abhängt. Die Likelihood-Funktion
- $L(a)$ ist definiert als
+bekannter Wahrscheinlichkeitsdichte $f(X_i, a)$ die von dem Parametervektor a abhängt.
+Bei unabhängigen Ereignissen/Messungen ist die Wahrscheinlichkeit $P(X_i \cap X_j) = P(X_i)P(X_j)$
+Mit der entsrpechenden Wahrscheinlichkeitsdichte wird die sogennate Likelihood-Funktion
+ $L(a)$ definiert als
 
  $$
  L(a) = f(X_1, a) \cdot f(X_2, a) \ldots f(X_N, a)
  $$
 
-Die Behauptung ist nun, dass die beste Schätzung für $a$ die Likelihood-Funktion maximiert.
-Da diese Form der Likelihood baer etwas nervig zu optimieren ist, logarithmiert man das ganze.
 
+Die Behauptung ist nun, dass die beste Schätzung für $a$ die Likelihood-Funktion maximiert.
+Da diese Form der Likelihood aber etwas nervig zu optimieren ist, logarithmiert man das ganze.
 $$
 l(a) = \ln(L(a)) = \sum_i \ln(f(X_i, a))
 $$
+Dieser Ausdruck ist maschinell wesentlich einfacher zu optimieren
 
-Dieser Ausdruck ist wesentlich einfacher zu optimieren
+### Fehler des geschätzen Wertes.
+Nähert man die LogLikelihood-Funktion in der Nähe des geschätzen Wertes $\hat a$ergibt sich in
+zweiter Ordnung eine Parabel.
+
+$$
+l(a) = l(\hat a) + \frac{1}{2}  \cdot \frac{d^2 l}{d^2a} \Bigr|_{\hat a}  (a- \hat a)^2 + \ldots
+$$
+
+Man beachte das $\frac{dl}{da}$ an der Stelle $\hat a$ per Definition gleich 0 seien muss.
+Exponentiert man das ganze wieder erkennt man, dass die Likelihood-Funktion zu der LogLikelihood-Funktion
+tatsächlich Normalverteilt an dieser Stelle ist. Die Varianz lässt sich dann Ablesen zu
+
+$$
+\sigma_{\hat a }^2 = \frac{d^2 l}{d^2a} \Bigr|_{\hat a}
+$$
+
+
+#### Ein Beispiel mit der Poisson Verteilung
+Angenommen die Messungen folgen einer Poissonverteilung mit unbekanntem Parameter $\lambda$ und
+es werden die Werte 13,8 und 9 gemessen. Einsetzen in die Likelihood-Funktion ergibt
+
+$$
+L(\lambda) =  f(12, \lambda)f(8,\lambda)f(9,\lambda) = \frac{\lambda^{13}}{13!} e^{- \lambda} \frac{\lambda^{8}}{8!} e^{- \lambda} \frac{\lambda^{9}}{9!} e^{- \lambda}.
+$$
+
+Das Maximum ergibt sich durch Ableiten
+
+$$
+\frac{\partial}{\partial \lambda} L(\lambda)  = \frac{1}{13!8!9!} e^{-3\lambda} \lambda^{29}(30 - 3\lambda) \stackrel{!}{=} 0 \implies \hat  \lambda = 10
+$$
+
+Wie erwartet ist $\lambda$ der Mittelwert der gemessenen Werte. Welcher bei einer Poissonverteilung
+natürlich allgemein auch eine Reele Zahl seien darf.
+
+Das ganze funktioniert äquivalent mit der LogLikelihood-Funktion $l(\lambda) = \ln(L(\lambda))$
+
+$$
+l(\lambda) =  \ln(f(12, \lambda)f(8,\lambda)f(9,\lambda)) = \ln(f(12,\lambda)) + \ln(f(8,\lambda)) + \ln(f(9,\lambda))
+$$
+
+und deren Ableitung
+
+$$
+\frac{\partial}{\partial \lambda} l(\lambda)  = -3 +  \frac{30}{\lambda} \stackrel{!}{=} 0 \implies \hat  \lambda = 10
+$$
+
+![](./likelihood.png)
+
+## Statistische Tests
+TODO
+### Kolgomorov Smirnov Wodka Test
+
+### $\Chi^2$-Test
+
+### Likelihood-Quotiente Test
