@@ -11,7 +11,7 @@ $$
 $$
 
 Fließkommazahlen werden üblicherweise im IEEE754 Standard gespeichert.
-Das Format erlaubt nur $b \in \{ 2, 10 \}  $. In alle landläufigen Systemen ist die
+Das Format erlaubt nur $b\in \{ 2, 10 \}$. In alle landläufigen Systemen ist die
 Basis gleich 2.
 Das Format erzwingt die **eindeutige** Darstellung der Zahlen in dem die
 Darstellung mit dem kleinsten Exponenten  gewählt wird.
@@ -76,7 +76,7 @@ Für die Kolgomorov Axiome benötigt man folgende Definitionen
   * Zunächst braucht man die Ergebnissmenge $\Omega$ , also die Menge der möglichen
     Ergebnissen eines Zufallsexperimentes. z.B $\Omega = \{Kopf, Zahl \}$
 
-  * Dann den Ereignissraum $\Sigma$ welcher unter Mengenoperationen $\cup,  \cap, \setminus $
+  * Dann den Ereignissraum $\Sigma$ welcher unter Mengenoperationen $\cup,  \cap, \setminus$
     abgeschlossen ist und $\Omega$ enthält. Häufig ist $\Sigma$ also einfach die Potenzmenge
     von $\Omega$
   * Ein $\sigma$-Maß  $P$ auf $\Omega$ welches in das Intervall $[0,1]$ abbildet.
@@ -85,7 +85,7 @@ Die Kolgomorov Axiome definieren den Begriff der Wahrscheinlichkeit:
 
   1. Ein Ereigniss $A \in \Sigma$ hat eine Wahrscheinlichkeit zugeordnet $0 \leq P(A) \leq 1$
   2. Für das sichere Ereigniss $\Omega$  gilt $P(\Omega) = 1$
-  3. Für paarweise disjunkte $A_i \subset \Sigma $ gilt $P(A_1 \dot{\cup} A_2 \dot{\cup}\ldots) = \sum_i P(A_i)$
+  3. Für paarweise disjunkte $A_i \subset \Sigma$ gilt $P(A_1 \dot{\cup} A_2 \dot{\cup}\ldots) = \sum_i P(A_i)$
 
 Eine wichtige Folgerung daraus ist die Wahrscheinlichkeit der Vereinigung mehrerer Ereignisse
 die nicht Disjunkt sind. $P(A \cup B) = P(A) + P(B) - P(A \cap B)$. Es gilt also das
@@ -119,7 +119,7 @@ $$
 P(X \leq x) = F(x)
 $$
 
-Dabei ist $X$ die Menge der $\omega \in \Omega$  für die $X(\omega) \leq x $. Entsprechend folgt
+Dabei ist $X$ die Menge der $\omega \in \Omega$  für die $X(\omega) \leq x$. Entsprechend folgt
 
 $$
  P(X \geq x) = 1 - F(x)
@@ -158,7 +158,7 @@ Für alle vernünftigen Funktionen $g$. Der Erwartungswert ist eine Lineare Abbi
 ### Statistische Momente
 
 Eng verwandt mit dem Erwartungswert sind die Momente. Das $k$-te Zentrale Moment für eine Zufallsvariable $X$
-mit Erwartungswert $E(X) = \mu $ ist definiert als
+mit Erwartungswert $E(X) = \mu$ ist definiert als
 
 $$
 \mu_k(X) = E((X-\mu)^k )
@@ -174,7 +174,7 @@ $$
 
 Für $k=3$ wird die Größe Schiefe (Skewness) und für $k=4$ Wölbung (Kurtosis) genannt.
 Häufig werden die Größen in Einheiten der Standardabweichung angegeben. Also jeweils noch
-durch $\sigma^k $ geteilt. In der Vorlesung auch.
+durch $\sigma^k$ geteilt. In der Vorlesung auch.
 
 ### Quantile
 Quantile einer Zufallsvariable lassen sich sehr einfach mit der Verteilungsfunktion definieren.
@@ -198,7 +198,7 @@ Es folgt eine Sammlung von wichtigen Veteilungen und deren Eigenschaften
 Entsteht durch eine Zufallsvariable $S = X_1 +  X_2$ wenn $X_1, X_2$ aus einer gleichverteilung Stammen.
 Die Dichtefunktion ist kompliziert. Der Erwartungswert bleibt aber bei  $E(S) = \frac{b-a}{2}$
 
-![Dreiecksvertielung aus zwei Gleichverteilungen](/home/kai/Development/smd/verteilung_1.png)
+![Dreiecksverteilung aus zwei Gleichverteilungen](./verteilung_1.png)
 
 
 ### Normalverteilung und Zentraler Grenzwertsatz
@@ -212,7 +212,16 @@ Wie bei jeder symmetrischen Verteilung sind all ungeraden (zentralen) Momente de
 Das zweite zentrale Moment der Veteilung ist logischerweise $\sigma^2$
 An dieser Stelle sollte man auf den [Zentralen Grenzwertsatz](http://de.wikipedia.org/wiki/Zentraler_Grenzwertsatz) hinweisen.
 
-### Die $\chi^2 $-Verteilung
+### Die Poisson-Verteilung
+
+* Dichtefunktion $f(k) = \frac{\lambda^k}{k!} e^{-\lambda}$
+* Erwartungswert $E(X) = \lambda$
+* Varianz $Var(X) = \lambda$
+
+Für große $\lambda$ wird die Poisson Verteilung ähnlich zur Normalverteilung
+mit $\mu = \lambda$ und $\sigma^2=\lambda$
+
+### Die $\chi^2$-Verteilung
 
 Eine $\chi^2$-Verteilung mit $n$ Freiheitsgraden entsteht aus der Summe von $n$ quadrierten
 unabhängig standardnormalverteilten Zufallsvariablen $Z_i^2$. Der einzige Parameter der
@@ -252,7 +261,7 @@ $a$ und $c$ erreicht. Nach Knuth gelten dafür folgende Bedingungen:
  Er erreicht seine maximale Prediodenlänge iff
 
   * Der Startwert $x_1$ ist Teilerfremd zu $M$
-  * $a$ ist primitives Element der Restklassengruppe   $\mathbb{Z} \setminus M\mathbb{Z}_\times $ .
+  * $a$ ist primitives Element der Restklassengruppe   $\mathbb{Z} \setminus M\mathbb{Z}_\times$ .
     Also mit Multiplikation
 
 
@@ -318,13 +327,13 @@ Zahl genutzt.
 ### Transformationsmethode
 
 Angenommen eine stetige Verteilungsfunktion $F(x)$ besitzt eine Umkehrfunktion und $U$
-sei eine auf dem Interval $[0,1]$ gleichverteilte Zufallsvariable. Dann genügt $X:=F^{-1}(U) $
+sei eine auf dem Interval $[0,1]$ gleichverteilte Zufallsvariable. Dann genügt $X:=F^{-1}(U)$
 der Verteilungsfunktion $F(X)$ wenn $F^{-1}$ die bekannte Quantilsfunktion ist. Siehe abschnitt weiter oben.
 
 >Generation von Zufallszahlen im Bereich von 0 bis $\pi$, die der
 >Wahrscheinlichkeitsdichte f(x)=sin(x) folgen
 
-Das ist nun leider keine Wahrscheinlichkeitsdichte.  Dafür aber $f(x)=\frac{sin(x)}{2} $.
+Das ist nun leider keine Wahrscheinlichkeitsdichte.  Dafür aber $f(x)=\frac{sin(x)}{2}$.
 
 Bestimme also zunächst die Verteilungsfunktion $F(x) = \int_{-\infty}^x f(x) dx$ in dem Defintionsbereich von
 $[0,\pi]$
@@ -378,7 +387,7 @@ $$
 
 Ziehe zunächst gleichverteilte Zufallszahlen $u_1, u_2$ aus dem Intervall $[0, 1]$.
 Für die Inversions Methode muss eine Verteilungsfunktion bestimmt werden. Betrachten wir also die
-neue Wahrscheinlichkeitsdichte $f(x,y) =  e^{- \frac{(x^2+ y^2)}{2}} \cdot \frac{1}{2\pi} $. Also das Produkt
+neue Wahrscheinlichkeitsdichte $f(x,y) =  e^{- \frac{(x^2+ y^2)}{2}} \cdot \frac{1}{2\pi}$. Also das Produkt
 aus zwei Normalverteilungen.
 
 Nach der Transformation in Polarkoordinaten wie oben erkennt man , dass der Polarwinkel $\varphi$ gleichverteilt
@@ -398,8 +407,8 @@ $$
 
 
 
-Und die Umkehrfunktion $F^{-1}(u_2) = \sqrt{-2 \ln(1- u_2)} $ die sich äquivalent schreiben
-lässt als $F^{-1}(u_2) = \sqrt{-2 \ln(u_2)} $ da die Verteilungen $1-u_2$ und $u_2$ gleich sind.
+Und die Umkehrfunktion $F^{-1}(u_2) = \sqrt{-2 \ln(1- u_2)}$ die sich äquivalent schreiben
+lässt als $F^{-1}(u_2) = \sqrt{-2 \ln(u_2)}$ da die Verteilungen $1-u_2$ und $u_2$ gleich sind.
 In kartesischen Koordinaten folgt demnach
 
 $$
@@ -423,7 +432,7 @@ Ausführung hilft. Hier der
    >2.  Berechne $q=u^2+v^2$. Falls $q = 0$ oder $q \geq 1$, gehe zurück zu Schritt 1.
    >3.  Berechne $p = \sqrt {\frac{-2 \cdot \ln q}{q}}$.
 
-   >$x_1=u \cdot p $ und $x_2=v \cdot p $ sind nun zwei voneinander unabhängige, standardnormalverteilte Zufallszahlen.
+   >$x_1=u \cdot p$ und $x_2=v \cdot p$ sind nun zwei voneinander unabhängige, standardnormalverteilte Zufallszahlen.
 
 ### Erzeugung $\chi^2$-verteilter Zahlen.
 
@@ -437,7 +446,7 @@ Ein Wikipdia sagt mehr als 1000 worte:
 
 >Für ungerade $n$ gilt dagegen
 
->  $\chi_n^2 = \chi_{n-1}^2 + \left[\mathcal{N}(0,1)\right]^{2}. $
+>  $\chi_n^2 = \chi_{n-1}^2 + \left[\mathcal{N}(0,1)\right]^{2}.$
 
 Beweis erfolgt mal wieder durch Plot.
 
@@ -449,8 +458,8 @@ Beweis erfolgt mal wieder durch Plot.
 
 Im weiteren beschränken wir uns auf binäre Entscheidungsprobleme.
 
-Unsere Daten bestehen aus $N$ Beobachtungen $\vec{X}^{(i)} $ wobei jede Vektorkomponente
-$\vec{X}_k $eine Eigenschaft/Feature/Parameter  oder auch Attribut codiert. Jede Komponente
+Unsere Daten bestehen aus $N$ Beobachtungen $\vec{X}^{(i)}$ wobei jede Vektorkomponente
+$\vec{X}_k$ eine Eigenschaft/Feature/Parameter  oder auch Attribut codiert. Jede Komponente
 ist also die Realisierung einer Zufallsvariable.
 Die Trainingsmenge sind die Tupel $(\vec{X}, Y)$ wobei $Y$ die Zufallsvariable ist,  welche
 die Klassenzugehörigkeit codiert. Das Klassenlabel wird häufig den Werten 0 oder 1 codiert.
@@ -486,7 +495,7 @@ $$
 V = \frac 1N (\underline{X} - \underline{\mu_x})^T  \cdot (\underline{X} - \underline{\mu_x})
 $$
 
-Der Gewichtsvektor $\vec{w} $ wird dann gebildet mit
+Der Gewichtsvektor $\vec{w}$ wird dann gebildet mit
 
 $$
 \vec{w}  = ( V_{0} + V_{1} )^{-1} (\underline{\mu_{x, 0}} - \underline{\mu_{x, 1}})
@@ -619,10 +628,10 @@ Seien zunächst o.B.d.A. $N$ **zentrierte** Zufallsvariablen $\vec{X}^{(i)}$ als
 gegeben.
 
   1. Berechnung der Kovarianzmatrix der Daten $C = \frac{1}{N-1} \underline{X}^T \underline{X}$
-  2. Diagonalisiere $C$ durch Zerlegung in $V^{-1}CV = D$ mit beliebiger Methode. In $V$ stehen jetzt also die Eigenvekoren $\vec{V}^{(i)} $
-  3. Transformiere die Datenmatrix in die Eigenbasis der Kovarianzen $\vec{Z}^{(i)} = \underline{X}  \vec{V}^{(i)} $
+  2. Diagonalisiere $C$ durch Zerlegung in $V^{-1}CV = D$ mit beliebiger Methode. In $V$ stehen jetzt also die Eigenvekoren $\vec{V}^{(i)}$
+  3. Transformiere die Datenmatrix in die Eigenbasis der Kovarianzen $\vec{Z}^{(i)} = \underline{X}  \vec{V}^{(i)}$
 
-Zur Reduktion der Dimension behalte man nur die $\vec{Z}^{(i)}$ zu den Eigenvektoren $ V^{(i)} $  deren Eigenwerte
+Zur Reduktion der Dimension behalte man nur die $\vec{Z}^{(i)}$ zu den Eigenvektoren $V^{(i)}$  deren Eigenwerte
 größer als ein bestimmter Schwellwert war.
 
 Die PCA eines 2D Gauß kann zum Beispiel so aussehen.
@@ -651,7 +660,7 @@ Wie genau diese Definiton zu verstehen ist weiß ich auch nicht. Vor allem da na
 $g(y)$ eindeutig exestieren muss glaub ich. Keine Ahnung.
 
 Sei zum Beispiel ein Wahrscheinlichkeitsdichte $f(x)$ gegeben zusammen mit einer Transformation
-$g(y) = \sqrt{y} = x$. Dann enthält $Dg$ nur das Element $\frac{1}{2\sqrt{y}} $ Im Blobel passiert an dieser Stelle Magie. Egal!
+$g(y) = \sqrt{y} = x$. Dann enthält $Dg$ nur das Element $\frac{1}{2\sqrt{y}}$ Im Blobel passiert an dieser Stelle Magie. Egal!
 
 
 Was bedeutet das für die Fehlerforpflanzung. Eher unklar. Zunächst ist das Wort Fehlerforpflanzung extrem
@@ -748,7 +757,7 @@ der Verteilung schätzen. Es gibt verschiedene kenngrößen um Schätzer zu kate
 
 Sei $\hat \theta$ der geschätzte Wert zum wahren Wert $\theta$.
 
- * Der Schätzer heißt Erwartungstreu wenn $E[\hat \theta]  = \theta $
+ * Der Schätzer heißt Erwartungstreu wenn $E[\hat \theta]  = \theta$
  * Der Schätzer hat den  Bias wenn  $B(\theta) = E[\hat \theta]   -  \theta$
  * Den $MSE(\theta) = E[(\hat \theta - \theta)^2] = B(\hat \theta)^2 + Var(\hat \theta)$
 
@@ -760,19 +769,19 @@ $S^2$ benutzt welche wieder Erwartungstreu ist.
 S^2 = \frac {1}{n-1} \sum_{i = 0}^n (x_i - \bar x)
  $$
 
- ### Kleinste Quadrate Methode
+### Kleinste Quadrate Methode
 
- Betrachtet man seine Messungen $x_i, y_i, z_i \ldots $ als Realisierung von Zufallsvariablen und möchte daraus
- die Parameter aus dem Parametervektor $a$ eines funktionalen Zusammenhangs $y = f(x,y,z,\ldots, a) \in \mathbb{R}^N$
+ Betrachtet man seine Messungen $x^{(1)}, x^{(2)}, x^{(3)} \ldots$ als Realisierung von Zufallsvariablen und möchte daraus
+ die Parameter aus dem Parametervektor $a$ eines funktionalen Zusammenhangs $y = f(x^{(1)}, x^{(2)},\ldots; a) \in \mathbb{R}^N$
  schätzen. Hier minimiert man einfach die Summe der Quadratabweichungen oder auch Residuen.
 
 $$
-\min_a \sum_i (y_i -f_i(x_i, y_i, z_i \ldots,  a) )^2 = \min_a \sum r_i^2 = \min_a \| y - f \|_2^2
+\min_a \sum_i (y_i - f_i(x^{(1)}, x^{(2)},\ldots; a) )^2 = \min_a \sum r_i^2 = \min_a \| y - f \|_2^2
 $$
 
-Um das Residuum zu minimieren muss die Ableitung 0 werden
+Um das Residuum zu minimieren muss jede Komponente des Gradientens 0 werden
 $$
-\frac{\partial }{\partial a_j} \sum (y_i - f_i(x_i, y_i, z_i \ldots,  a))^2 = - 2 \sum r_i \frac{\partial f_i(x_i, y_i, z_i \ldots,  a)}{\partial a_j} \stackrel{!}{=} 0
+\frac{\partial}{\partial a_j} \sum (y_i - f_i(x^{(1)}, x^{(2)},\ldots; a))^2 = - 2 \sum r_i \frac{\partial f_i(x^{(1)}, x^{(2)},\ldots; a)}{\partial a_j} \stackrel{!}{=} 0 \text{für} j = 1 \ldots m
 $$
 
 Die Minimierung kann aber über beliebiges Verfahren erfolgen. Der Vorteil dieser Methode liegt darin, dass
@@ -781,10 +790,10 @@ man keine Annahme über die Verteilung der Zufallsvariablen machen muss.
 #### Linear Least Squares
 
 Wichtiger Spezialfall sind jedoch Lineare Modelle. Die sich häufig analytisch lösen lassen.
-Also Funktionen $f = \sum_k a_k \phi_k(x,y,z, \ldots)$ die nur linear in den Parametern $a_i$ sind.
+Also Funktionen $f = \sum_j a_j \phi_j(x^{(1)},x^{(2)}, \ldots)$ die nur linear in den Parametern $a_j$ sind.
 Die Ableitung wird so zu
 $$
-X_{k,i} = \frac{\partial f_i(x_i, y_i, z_i,  \ldots ,a)}{\partial a_k} = \phi_k(x_i, y_i, z_i, \ldots)
+X_{k,i} = \frac{\partial f_i(x^{(1)}, x^{(2)},\ldots; a)}{\partial a_k} = \phi_{k,i}(x^{(1)}, x^{(2)}, \ldots)
 $$
 
 Setzt man diesen Spaß in die Gleichung der Ableitung ein kommt man auf die
@@ -802,6 +811,7 @@ $$
 V_{\hat a} = (X^T X )^{-1}  X^T V_y ( (X^T X )^{-1}  X^T)^T
 $$
 
+Ein wichtiger Spezialfall tritt ein, wenn es keine Korrelationen zwischen den Werten gibt
 #### Weighted Linear Least Squares
 
 Manchmal ist es wünschenswert verschiedene Messungen seiner Stichprobe unterschiedlich zu gewichten.
@@ -817,7 +827,7 @@ $$
 \sum_i (f_i(x,  a) - y_i)^2 = \sum_i (a_1 \cos(x_i) + a_2\sin(x_i) - y_i)^2
 $$
 
-Das Residuum $r_i  = a_1 \cos(x_i) + a_2\sin(x_i) - y_i $ lässt sich in Matrixschreibweise hinschreiben als
+Das Residuum $r_i  = a_1 \cos(x_i) + a_2\sin(x_i) - y_i$ lässt sich in Matrixschreibweise hinschreiben als
 $r = X a - y$. Mit der Matrix
 
 $$
@@ -902,6 +912,6 @@ $$
 TODO
 ### Kolgomorov Smirnov Wodka Test
 
-### $\Chi^2$-Test
+### $\chi^2$-Test
 
 ### Likelihood-Quotiente Test
