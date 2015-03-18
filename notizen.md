@@ -776,7 +776,7 @@ S^2 = \frac {1}{n-1} \sum_{i = 0}^n (x_i - \bar x)
  schätzen. Hier minimiert man einfach die Summe der Quadratabweichungen oder auch Residuen.
 
 $$
-\min_a \sum_i (y_i - f_i(x^{(1)}, x^{(2)},\ldots; a) )^2 = \min_a \sum r_i^2 = \min_a \| y - f \|_2^2
+S = \min_a \sum_i (y_i - f_i(x^{(1)}, x^{(2)},\ldots; a) )^2 = \min_a \sum r_i^2 = \min_a \| y - f \|_2^2
 $$
 
 Um das Residuum zu minimieren muss jede Komponente des Gradientens 0 werden
@@ -803,6 +803,16 @@ $$
 (X^T X )^{-1}  X^T y  = \hat a
 $$
 
+Auch die Quadratsumme der Residuen lässt sich in Matrixform schreiben und darin der
+Schätzer einsetzen.
+
+$$
+S = y^T y  - 2 a^T  A^T y + a^T A^T A a
+$$
+
+$$
+\hat S = y^T y - \hat{a}^T A^T y
+$$
 
 Die Fehler auf die geschätzten Paramater $a$ erhält wie zuvor aus der Transfomation der Kovarianzmatrix
 $V_y$ die wir aus unserer Messung gewinnen können.
@@ -811,7 +821,14 @@ $$
 V_{\hat a} = (X^T X )^{-1}  X^T V_y ( (X^T X )^{-1}  X^T)^T
 $$
 
-Ein wichtiger Spezialfall tritt ein, wenn es keine Korrelationen zwischen den Werten gibt
+Ein wichtiger Spezialfall tritt ein, wenn es keine Korrelationen zwischen den Werten gibt. Dann
+wird die Matrix $V_y$ Diagonal $V_y = \sigma^2 \mathbb{1}$ und
+
+$$
+V_{\hat a} =  (X^T X )^{-1} \sigma^2.
+$$
+
+
 #### Weighted Linear Least Squares
 
 Manchmal ist es wünschenswert verschiedene Messungen seiner Stichprobe unterschiedlich zu gewichten.
@@ -838,7 +855,7 @@ X = \begin{pmatrix}
   \end{pmatrix}
 $$
 
-..ewig lang alles glaub ich
+.... TODO
 
 ### Maximum Likelihood Methode
 
@@ -908,8 +925,11 @@ $$
 
 ![](./likelihood.png)
 
+
 ## Statistische Tests
+
 TODO
+
 ### Kolgomorov Smirnov Wodka Test
 
 ### $\chi^2$-Test
