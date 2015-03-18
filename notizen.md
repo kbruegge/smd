@@ -101,10 +101,10 @@ $$
 Dies genügt den Kolgomorov Axiomen wenn $B = \Omega$ die neue Ergebnissmenge  ist.
 (Da offensichtlich $P(B \vert B ) = 1$ etc ...)
 
-Sind zwei Ereignisse unabhängig so gilt per definition der bedingten Wahrscheinlichkeiten $P(A) = P(A \vert B)$
+Sind zwei Ereignisse unabhängig so gilt per definition der bedingten Wahrscheinlichkeiten $P(A \vert B) = P(A)$
 Mit der Definition von oben gilt also sofort
 $$
-P(A \vert B) \cdot P(B) = P(A \cap B) = P(A)
+P(A \vert B) \cdot P(B) = P(A) \cdot P(B) =  P(A \cap B)
 $$
 
 Larifaari ausgedrückt sind lassen sich unabhängige Ereignisse also miteinander Multiplizieren.
@@ -138,7 +138,7 @@ $$
 f(x) = \frac{d F(x)}{d x}
 $$
 
-Andersrum ausgedrückt
+Andersherum ausgedrückt
 $$
 F(x) = \int_{-\infty}^x f(x) dx
 $$
@@ -153,7 +153,11 @@ $$
 E[g(X)] = \int g(x) \cdot f(x)
 $$
 
-Für alle vernünftigen Funktionen $g$. Der Erwartungswert ist eine Lineare Abbildung.
+Für alle vernünftigen Funktionen $g$. Der Erwartungswert ist eine Lineare Abbildung und wird
+häufig mit dem Buchstaben $\mu$ abgekürzt.
+
+
+
 
 ### Statistische Momente
 
@@ -166,15 +170,26 @@ $$
 
 Für $k = 2$ wird das Moment auch Varianz $Var(X) = \sigma^2$ genannt.
 Für die Varianz gilt der Verschiebungssatz (auch Satz von Steiner). Wir nutzen die Linerarität des
- Erwartungswertes um die eigenschaft zu zeigen.
+Erwartungswertes um die eigenschaft zu zeigen.
 
 $$
 Var(X) = E((X - \mu)^2) = E(X^2 - 2 \mu X + \mu^2) = E(X^2) - 2 E(X) E(X)  + E(X)^2 = E(X^2) - \mu^2
 $$
 
+Die Varianz ist ein Streungsmaß für eine Zufallsvariable.
+Für die Varianz gilt immer
+
+$$
+Var(aX + b) = a^2 Var(X)
+$$
+
+mit den reelen Parametern $a,b$.
+
 Für $k=3$ wird die Größe Schiefe (Skewness) und für $k=4$ Wölbung (Kurtosis) genannt.
 Häufig werden die Größen in Einheiten der Standardabweichung angegeben. Also jeweils noch
 durch $\sigma^k$ geteilt. In der Vorlesung auch.
+
+
 
 ### Quantile
 Quantile einer Zufallsvariable lassen sich sehr einfach mit der Verteilungsfunktion definieren.
@@ -210,7 +225,19 @@ Dabei ist der Parameter $\mu$ der Erwartungswert und $\sigma^2$ die Varianz der 
 
 Wie bei jeder symmetrischen Verteilung sind all ungeraden (zentralen) Momente der Verteilung gleich 0.
 Das zweite zentrale Moment der Veteilung ist logischerweise $\sigma^2$
-An dieser Stelle sollte man auf den [Zentralen Grenzwertsatz](http://de.wikipedia.org/wiki/Zentraler_Grenzwertsatz) hinweisen.
+An dieser Stelle sollte man auf den [Zentralen Grenzwertsatz](http://de.wikipedia.org/wiki/Zentraler_Grenzwertsatz)
+hinweisen.
+
+### Binomialverteilung
+
+Beschreibt die Wahrscheinlichkeit $k$ Erfolge eines Bernouli Prozesses mit der Erfolgswahrscheinlichkeit $p$
+und $n$ Wiederholungen zu Messen
+
+* Dichtefunktion $f(k) = \begin{pmatrix} n \\ k \end{pmatrix} p^k(1-p)^{n-k} {k!}$
+* Erwartungswert $E(X) = np$
+* Varianz $Var(X) = np(1-p)$
+
+Für große $n$ nähert sich die Verteilung der Normalverteilung mit $\mu = np$ und $\sigma^2 = np(1-p)$
 
 ### Die Poisson-Verteilung
 
@@ -232,6 +259,403 @@ Wichtig sind eher
  * Varianz t  $Var(\chi_n^2) = 2n$
 
 Die Summe von $\chi^2$ Verteilungen ist wieder $\chi^2$ verteilt.
+
+### t-Verteilung
+
+Entsteht wenn der Mittelwert einer Normalverteilten Zufallsvariable, mit unbekannter Varianz,
+einer kleinen Stichprobe geschätzt wird.
+
+Strebt für große Stichprobengrößen gegen die Gaußverteilung. Siehe ZGWS.
+
+### F-Verteilung
+
+Ist der Quotient zweier $\chi^2$ - Verteilungen. Wird für die Varianzanalyse benutzt.
+
+## Mehrdimensionales
+
+Analog zum eindimensionalen Fall werden Quantile, Verteilungsfunktionen und Dichten beschrieben.
+Belassen wir es bei 2 Variablen lauten die wichtigsten Definitionen wie folgt.
+
+Zunächst die Verteilungsfunktion
+$$
+  F(X,Y) = P(X < x, Y < y)
+$$
+
+Die Wahrscheinlichkeitsdichte
+
+$$
+  f(x,y) = \partial_x \partial_y F(X,Y)
+$$
+
+Die Randverteilungen sind definiert als
+
+$$
+g(x) = \int f(x, y) dy
+$$
+
+$$
+h(y) = \int f(x, y) dx
+$$
+
+Es lassen sich auch für stetige Zufallsvariablen bedingte Wahrscheinlichkeiten bzw. Dichten definieren.
+
+$$
+f(x \lvert Y = y ) = \frac{f(x,y )}{h(y)}
+$$
+
+$$
+f(y \lvert X = x ) = \frac{f(x,y)}{g(x)}
+$$
+
+Und wie im 1D Fall gilt auch hier das $X$ und $Y$ unabhängig sind wenn $f(x,y) = g(x)h(y)$
+
+$$
+f(x \lvert Y = y ) = \frac{f(x,y)}{h(y)} = g(x)
+$$
+
+Wenn zwei Variablen unabhängig sind, dann sind sie Unkorreliert. Das gilt nicht in die
+andere Richtung.
+
+Der Erwartungswert der Zufallsvariablen X,Y mit der Wahrscheinlichkeitsdichte $f(x,y)$ ist
+genau so definiert wie immer
+
+$$
+E[g(X,Y)] = \int\int g(x,y) f(x,y) dx dy
+$$
+
+
+Auch denkbar ist die Zusammenfassung von Zufallsvariablen zu einem Vektor $\vec{X} = (X_1, X_2, \ldots)$
+(auch häufig ohne den Vektorpfeil). Erwartungswerte und ähnliche größen werden dann
+komponentenweise angewandt. Das Analogon zur Varianz ist die Kovarianzmatrix
+
+$$
+Cov(\vec{X}) = E[(X - \mu)^T(X- \mu)]
+$$
+
+
+### Mehrdimensionale Normalverteilung
+
+Vermutlich die mehrdimensionale Verteilung, die einem in der Praxis am häufigsten begegnet.
+
+$$
+f(\vec{X}) = \frac{\det(C^{-1})^{1/2}}{(2 \pi)^{n/2}} e^{-\frac{1}{2} (\vec{X} - \vec{a})^T C^{-1} (\vec{X} - \vec{a}) }
+$$
+
+Wobei $C^{-1}$ das Inverse zur Kovarianzmatrix ist.
+
+
+## Transformation und Fehlerfortpflanzung
+
+Transformieren man eine Wahrscheinlichkeitsdichte $f(x), x  \in \mathbb{R}^n$ mit $g(y) = x,  g:\Omega \rightarrow \mathbb{R}^n$ so gilt auch hier der
+ [Transformationssatz](http://de.wikipedia.org/wiki/Transformationssatz)
+$$
+ \int_{g(\Omega)} f(x) dx = \int_\Omega f(g(y)) \det [Dg(y)]  dy  
+$$
+mit der Determinante  der Jacobi Matrix $Dg(y)$ an der Stelle $y$.
+
+Im Blobel steht das ganze etwas salopp ungefähr so. Man verlangt eine "flächentreue" Abbildung
+zwischen den Wahrscheinlichkeitsdichten $f_y(y)$ und $f_x(x)$ wenn eine Abbildung $g(y) = x$
+gegeben ist.
+$$
+f_y(y) = \sum_{\text{Zweige}} \frac{f_x(g(y))}{\lvert dx/dy \rvert }
+$$
+Wie genau diese Definiton zu verstehen ist weiß ich auch nicht. Vor allem da nach Transformationssatz die
+$g(y)$ eindeutig exestieren muss glaub ich. Keine Ahnung.
+
+Sei zum Beispiel ein Wahrscheinlichkeitsdichte $f(x)$ gegeben zusammen mit einer Transformation
+$g(y) = \sqrt{y} = x$. Dann enthält $Dg$ nur das Element $\frac{1}{2\sqrt{y}}$ Im Blobel passiert an dieser Stelle Magie. Egal!
+
+
+Was bedeutet das für die Fehlerforpflanzung. Eher unklar. Zunächst ist das Wort Fehlerforpflanzung extrem
+gefährlich da Messfehler oder gar systematische sich Fehler unabhängig von der zugrunde liegenden
+Wahrscheinlichkeitsdichte der Messgröße propagieren. Wir können tatsächlich *nur* die Kovarianzmatrix
+transformieren. Diese können wir aus unseren Messungen natürlich schätzen.
+
+### Lineare Transformation
+
+Allgemein gilt gegeben eine Zufallsvariable $X$ mit Kovarianzmatrix $V_X$ und eine lineare Abbildung
+$f =A X$, so gilt für die Transfomation der Kovarianz
+
+$$
+V_f = A V_X A^T
+$$
+
+Auch wenn es keine Korrelationen in $X$ gibt, $V_X$ also Diagonal ist,  so muss $V_f$ nicht unbedingt Diagonal
+sein.
+
+Der Erwartungswert ist eine lineare Abbildung. Demnach gilt:
+$$
+E[f(X)] = E[A X] = A E[X]
+$$
+
+
+### Nicht lineare Transformation
+
+Sei $f(X)$ irgendeine nicht-lineare Funktion die unsere Zufallsvariable $X$ transformiert. Die Taylor Näherung
+in erster Ordnung um den Mittelwert $\mu$ lautet dann
+
+$$
+f \approx f(\mu) + Df \cdot (x -\mu)
+$$
+
+mit Jacobi Matrix $Df$. Die Konstante $f(\mu)$ hat keinen einfluss auf die Kovarianz der Zufallsvariable
+in der Transfomation. So ergibt sich die neue Kovarianzmatrix wie im linearen Fall oben  wieder einfach zu
+
+$$
+V_f =  Df  V_x Df^T
+$$
+In der Vorlesung heißt die Matrix $B$ und das ganze wird zur Großkreutzschen Forlmel:
+
+$$
+V_f = B V_x B^T
+$$
+
+
+In den allermeisten Fällen ist die Funktion $f$ jedoch ein Skalarfeld. Zum Beispiel die indirekte Messung einer
+Größe durch zwei andere Größen, wie etwa den Widerstand über die Spannung und den Strom.
+Ein Beispiel mit einer Skalaren Funktion $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ und einer zentrierten
+Zufallsvariable $X = (x,y)^T $ kann so aussehen:
+
+$$
+f \approx  f(0) + \text{grad f}  \cdot X = f(0) + \frac{\partial f}{\partial x} x + \frac{\partial f}{\partial y}y
+$$
+
+Da die Jacobi Matrix für skalare Felder zum Gradienten wird.
+Mit der Kovarianzmatrix
+$$
+V_x =         \begin{pmatrix}
+        \sigma_x^2 & \sigma_{xy} \\
+        \sigma_{xy} & \sigma_y^2
+        \end{pmatrix}
+$$
+
+folgt für die transformierte Varianz
+
+$$
+\sigma_f^2  = \begin{pmatrix}
+           \partial_{x} f\\
+           \partial_{y}f
+        \end{pmatrix}
+        \cdot
+        \begin{pmatrix}
+        \sigma_x^2 & \sigma_{xy} \\
+        \sigma_{xy} & \sigma_y^2
+        \end{pmatrix}
+        \cdot
+        \begin{pmatrix}
+                   \partial_{x} f\\
+                   \partial_{y}f
+          \end{pmatrix}
+          = (\partial_x f)^2  \sigma_x^2 + (\partial_y f )^2  \sigma_y^2 + 2 \partial_x \partial_y f \sigma_{x,y}
+$$
+
+Diese Form ist auch als  Gaußsche Fehleforpflanzung bekannt.
+
+
+## Schätzen
+
+Schätzer werden benutzt um unbekannte Parameter der Grundgesamtheit die einer Messung
+zugrunde liegt zu berechnen.  Seien beispielsweise Werte einer Messung normalverteilt mit
+unbekannten Parametern so lassen sich bei ausreichender Stichprobengröße Varianz und Mittelwert
+der Verteilung schätzen. Es gibt verschiedene kenngrößen um Schätzer zu kategorisieren.
+
+Sei $\hat \theta$ der geschätzte Wert zum wahren Wert $\theta$.
+
+ * Der Schätzer heißt Erwartungstreu wenn $E[\hat \theta]  = \theta$
+ * Der Schätzer hat den  Bias wenn  $B(\theta) = E[\hat \theta]   -  \theta$
+ * Den $MSE(\theta) = E[(\hat \theta - \theta)^2] = B(\hat \theta)^2 + Var(\hat \theta)$
+
+So ist das arithmethische Mittels beispielsweise ein erwartungstreuer Schätzer für den wahren Mittelwert.
+Die einfache Formel für die Varianz dagegen ist verzerrt. Weshalb man häufig die korrigierte Stichprobenvarianz
+$S^2$ benutzt welche wieder Erwartungstreu ist.
+
+ $$
+S^2 = \frac {1}{n-1} \sum_{i = 0}^n (x_i - \bar x)
+ $$
+
+### Kleinste Quadrate Methode
+
+ Betrachtet man seine Messungen $x^{(1)}, x^{(2)}, x^{(3)} \ldots$ als Realisierung von Zufallsvariablen und möchte daraus
+ die Parameter aus dem Parametervektor $a$ eines funktionalen Zusammenhangs $y = f(x^{(1)}, x^{(2)},\ldots; a) \in \mathbb{R}^N$
+ schätzen. Hier minimiert man einfach die Summe der Quadratabweichungen oder auch Residuen.
+
+$$
+S = \min_a \sum_i (y_i - f_i(x^{(1)}, x^{(2)},\ldots; a) )^2 = \min_a \sum r_i^2 = \min_a \| y - f \|_2^2
+$$
+
+Um das Residuum zu minimieren muss jede Komponente des Gradientens 0 werden
+$$
+\frac{\partial}{\partial a_j} \sum (y_i - f_i(x^{(1)}, x^{(2)},\ldots; a))^2 = - 2 \sum r_i \frac{\partial f_i(x^{(1)}, x^{(2)},\ldots; a)}{\partial a_j} \stackrel{!}{=} 0 \text{für} j = 1 \ldots m
+$$
+
+Die Minimierung kann aber über beliebiges Verfahren erfolgen. Der Vorteil dieser Methode liegt darin, dass
+man keine Annahme über die Verteilung der Zufallsvariablen machen muss.
+
+#### Linear Least Squares
+
+Wichtiger Spezialfall sind jedoch Lineare Modelle. Die sich häufig analytisch lösen lassen.
+Also Funktionen $f = \sum_j a_j \phi_j(x^{(1)},x^{(2)}, \ldots)$ die nur linear in den Parametern $a_j$ sind.
+Die Ableitung wird so zu
+$$
+X_{k,i} = \frac{\partial f_i(x^{(1)}, x^{(2)},\ldots; a)}{\partial a_k} = \phi_{k,i}(x^{(1)}, x^{(2)}, \ldots)
+$$
+
+Setzt man diesen Spaß in die Gleichung der Ableitung ein kommt man auf die
+wichtige Matrixgleichung als Schätzer für $a$
+
+$$
+(X^T X )^{-1}  X^T y  = \hat a
+$$
+
+Auch die Quadratsumme der Residuen lässt sich in Matrixform schreiben und darin der
+Schätzer einsetzen.
+
+$$
+S = (y - aA)^T (y - aA)
+$$
+
+$$
+\hat S = y^T y - \hat{a}^T A^T y
+$$
+
+Die Fehler auf die geschätzten Paramater $a$ erhält wie zuvor aus der Transfomation der Kovarianzmatrix
+$V_y$ die wir aus unserer Messung gewinnen können.
+
+$$
+V_{\hat a} = (X^T X )^{-1}  X^T V_y ( (X^T X )^{-1}  X^T)^T
+$$
+
+Ein wichtiger Spezialfall tritt ein, wenn es keine Korrelationen zwischen den Werten gibt. Dann
+wird die Matrix $V_y$ Diagonal $V_y = \sigma^2 \mathbb{1}$ und
+
+$$
+V_{\hat a} =  (X^T X )^{-1} \sigma^2.
+$$
+
+Im nächsten Beispiel wurden Punkte aus einer zweidimensionalen Normalverteilung gezogen und eine
+Gerade der Form $f(x) = a_0 + a_1 x$ durch das Least Squares Verfahren wie es oben beschrieben
+ist angepasst.
+
+![OLS Fit](./ols.png)
+
+#### Weighted Linear Least Squares
+
+Manchmal ist es wünschenswert verschiedene Messungen seiner Stichprobe unterschiedlich zu gewichten.
+Im Optimalfall nimmt man dafür den Kehrwert der Varianz der Messung. Die ist in der Praxis aber eher
+selten bekannt. Aber häufig proportional zum gemessenen Wert.
+
+#### Tikhonov Regularisierung
+
+Die bei der Schätzung auftretende Matrix $(X^T X)$ ist eventuell schlecht konditioniert oder im
+Extremfall sogar singulär. Um das zu vermeiden wird nicht direkt die Summe der Residuen minimiert
+sondern noch eine weitere Nebenbedingung gestellt die durch eine Matrix $\Gamma$ ausgedrückt wird.
+
+$$
+S = (y - aX)^T (y - aX)  + \Gamma
+$$
+
+Die Lösungsgleichung für die Paramater $a$ wird dann zu
+
+$$
+a = (X^T X + \Gamma^T \Gamma)^{-1}X^T y
+$$
+
+Häufig möchte man zum Beispiel verlangen das die Norm des Parametervektors $a$ klein bleibt.
+Dann wird aus der Tikhonov Matrix $\Gamma = \lambda a^T a \mathbb{1}$ mit $\lambda \in \mathbb{R}$.
+
+
+
+######  Beispielrechnung aus der Übung
+
+Gegeben sei das Modell $f = a_1 \cos(x) + a_2 \sin(x)$ wobei $f \in \mathbb{R}^N$ und $N$ Messungen.
+Die Residuen  $\| f- y \|_2^2$ sollen minimiert werden. Zunächst in Komponentenschreibweise
+
+$$
+\sum_i (f_i(x,  a) - y_i)^2 = \sum_i (a_1 \cos(x_i) + a_2\sin(x_i) - y_i)^2
+$$
+
+Das Residuum $r_i  = a_1 \cos(x_i) + a_2\sin(x_i) - y_i$ lässt sich in Matrixschreibweise hinschreiben als
+$r = X a - y$. Mit der Matrix
+
+$$
+X = \begin{pmatrix}
+    \cos(x_1) & \sin(x_1) \\
+    \cos(x_2) & \sin(x_2) \\
+    \vdots & \vdots \\
+  \end{pmatrix}
+$$
+
+.... TODO
+
+### Maximum Likelihood Methode
+
+Man hat $N$ unabhängige  Messungen von Variablen (Vektoren) $X_i$ als Realisierung einer Zufallsvariable mit
+bekannter Wahrscheinlichkeitsdichte $f(X_i, a)$ die von dem Parametervektor a abhängt.
+Bei unabhängigen Ereignissen/Messungen ist die Wahrscheinlichkeit $P(X_i \cap X_j) = P(X_i)P(X_j)$
+Mit der entsrpechenden Wahrscheinlichkeitsdichte wird die sogennate Likelihood-Funktion
+ $L(a)$ definiert als
+
+ $$
+ L(a) = f(X_1, a) \cdot f(X_2, a) \ldots f(X_N, a)
+ $$
+
+
+Die Behauptung ist nun, dass die beste Schätzung für $a$ die Likelihood-Funktion maximiert.
+Da diese Form der Likelihood aber etwas nervig zu optimieren ist, logarithmiert man das ganze.
+$$
+l(a) = \ln(L(a)) = \sum_i \ln(f(X_i, a))
+$$
+Dieser Ausdruck ist maschinell wesentlich einfacher zu optimieren
+
+### Fehler des geschätzen Wertes.
+Nähert man die LogLikelihood-Funktion in der Nähe des geschätzen Wertes $\hat a$ergibt sich in
+zweiter Ordnung eine Parabel.
+
+$$
+l(a) = l(\hat a) + \frac{1}{2}  \cdot \frac{d^2 l}{d^2a} \Bigr|_{\hat a}  (a- \hat a)^2 + \ldots
+$$
+
+Man beachte das $\frac{dl}{da}$ an der Stelle $\hat a$ per Definition gleich 0 seien muss.
+Exponentiert man das ganze wieder erkennt man, dass die Likelihood-Funktion zu der LogLikelihood-Funktion
+tatsächlich Normalverteilt an dieser Stelle ist. Die Varianz lässt sich dann Ablesen zu
+
+$$
+\sigma_{\hat a }^2 = \frac{d^2 l}{d^2a} \Bigr|_{\hat a}
+$$
+
+
+#### Ein Beispiel mit der Poisson Verteilung
+Angenommen die Messungen folgen einer Poissonverteilung mit unbekanntem Parameter $\lambda$ und
+es werden die Werte 13,8 und 9 gemessen. Einsetzen in die Likelihood-Funktion ergibt
+
+$$
+L(\lambda) =  f(12, \lambda)f(8,\lambda)f(9,\lambda) = \frac{\lambda^{13}}{13!} e^{- \lambda} \frac{\lambda^{8}}{8!} e^{- \lambda} \frac{\lambda^{9}}{9!} e^{- \lambda}.
+$$
+
+Das Maximum ergibt sich durch Ableiten
+
+$$
+\frac{\partial}{\partial \lambda} L(\lambda)  = \frac{1}{13!8!9!} e^{-3\lambda} \lambda^{29}(30 - 3\lambda) \stackrel{!}{=} 0 \implies \hat  \lambda = 10
+$$
+
+Wie erwartet ist $\lambda$ der Mittelwert der gemessenen Werte. Welcher bei einer Poissonverteilung
+natürlich allgemein auch eine Reele Zahl seien darf.
+
+Das ganze funktioniert äquivalent mit der LogLikelihood-Funktion $l(\lambda) = \ln(L(\lambda))$
+
+$$
+l(\lambda) =  \ln(f(12, \lambda)f(8,\lambda)f(9,\lambda)) = \ln(f(12,\lambda)) + \ln(f(8,\lambda)) + \ln(f(9,\lambda))
+$$
+
+und deren Ableitung
+
+$$
+\frac{\partial}{\partial \lambda} l(\lambda)  = -3 +  \frac{30}{\lambda} \stackrel{!}{=} 0 \implies \hat  \lambda = 10
+$$
+
+![](./likelihood.png)
+
+
 
 ## Zufahlszahlen und Verteilungen
 
@@ -605,8 +1029,10 @@ der IG für jeden Wert bestimmt.  Es sei darauf hingewiesen das die Entropie wie
 definiert ist natürlich nur für Zufallsvariablen gilt die diskrete Werte annehmen. Wir können
 den Trick nur anwenden weil unsere Daten immer abzählbar bleiben.
 
+
 ### Ensemble Methoden (Bagging)
 TODO
+
 #### Random Forest
 TODO
 
@@ -641,289 +1067,7 @@ Die PCA eines 2D Gauß kann zum Beispiel so aussehen.
 ### MRMR
 Wat soll man dazu sagen?
 
-## Transformation und Fehlerfortpflanzung
 
-Transformieren man eine Wahrscheinlichkeitsdichte $f(x), x  \in \mathbb{R}^n$ mit $g(y) = x,  g:\Omega \rightarrow \mathbb{R}^n$ so gilt auch hier der
- [Transformationssatz](http://de.wikipedia.org/wiki/Transformationssatz)
-$$
- \int_{g(\Omega)} f(x) dx = \int_\Omega f(g(y)) \det [Dg(y)]  dy  
-$$
-mit der Determinante  der Jacobi Matrix $Dg(y)$ an der Stelle $y$.
-
-Im Blobel steht das ganze etwas salopp ungefähr so. Man verlangt eine "flächentreue" Abbildung
-zwischen den Wahrscheinlichkeitsdichten $f_y(y)$ und $f_x(x)$ wenn eine Abbildung $g(y) = x$
-gegeben ist.
-$$
-f_y(y) = \sum_{\text{Zweige}} \frac{f_x(g(y))}{\lvert dx/dy \rvert }
-$$
-Wie genau diese Definiton zu verstehen ist weiß ich auch nicht. Vor allem da nach Transformationssatz die
-$g(y)$ eindeutig exestieren muss glaub ich. Keine Ahnung.
-
-Sei zum Beispiel ein Wahrscheinlichkeitsdichte $f(x)$ gegeben zusammen mit einer Transformation
-$g(y) = \sqrt{y} = x$. Dann enthält $Dg$ nur das Element $\frac{1}{2\sqrt{y}}$ Im Blobel passiert an dieser Stelle Magie. Egal!
-
-
-Was bedeutet das für die Fehlerforpflanzung. Eher unklar. Zunächst ist das Wort Fehlerforpflanzung extrem
-gefährlich da Messfehler oder gar systematische sich Fehler unabhängig von der zugrunde liegenden
-Wahrscheinlichkeitsdichte der Messgröße propagieren. Wir können tatsächlich *nur* die Kovarianzmatrix
-transformieren. Diese können wir aus unseren Messungen natürlich schätzen.
-
-### Lineare Transformation
-
-Allgemein gilt gegeben eine Zufallsvariable $X$ mit Kovarianzmatrix $V_X$ und eine lineare Abbildung
-$f =A X$, so gilt für die Transfomation der Kovarianz
-
-$$
-V_f = A V_X A^T
-$$
-
-Auch wenn es keine Korrelationen in $X$ gibt, $V_X$ also Diagonal ist,  so muss $V_f$ nicht unbedingt Diagonal
-sein.
-
-Der Erwartungswert ist eine lineare Abbildung. Demnach gilt:
-$$
-E[f(X)] = E[A X] = A E[X]
-$$
-
-
-### Nicht lineare Transformation
-
-Sei $f(X)$ irgendeine nicht-lineare Funktion die unsere Zufallsvariable $X$ transformiert. Die Taylor Näherung
-in erster Ordnung um den Mittelwert $\mu$ lautet dann
-
-$$
-f \approx f(\mu) + Df \cdot (x -\mu)
-$$
-
-mit Jacobi Matrix $Df$. Die Konstante $f(\mu)$ hat keinen einfluss auf die Kovarianz der Zufallsvariable
-in der Transfomation. So ergibt sich die neue Kovarianzmatrix wie im linearen Fall oben  wieder einfach zu
-
-$$
-V_f =  Df  V_x Df^T
-$$
-In der Vorlesung heißt die Matrix $B$ und das ganze wird zur Großkreutzschen Forlmel:
-
-$$
-V_f = B V_x B^T
-$$
-
-
-In den allermeisten Fällen ist die Funktion $f$ jedoch ein Skalarfeld. Zum Beispiel die indirekte Messung einer
-Größe durch zwei andere Größen, wie etwa den Widerstand über die Spannung und den Strom.
-Ein Beispiel mit einer Skalaren Funktion $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ und einer zentrierten
-Zufallsvariable $X = (x,y)^T $ kann so aussehen:
-
-$$
-f \approx  f(0) + \text{grad f}  \cdot X = f(0) + \frac{\partial f}{\partial x} x + \frac{\partial f}{\partial y}y
-$$
-
-Da die Jacobi Matrix für skalare Felder zum Gradienten wird.
-Mit der Kovarianzmatrix
-$$
-V_x =         \begin{pmatrix}
-        \sigma_x^2 & \sigma_{xy} \\
-        \sigma_{xy} & \sigma_y^2
-        \end{pmatrix}
-$$
-
-folgt für die transformierte Varianz
-
-$$
-\sigma_f^2  = \begin{pmatrix}
-           \partial_{x} f\\
-           \partial_{y}f
-        \end{pmatrix}
-        \cdot
-        \begin{pmatrix}
-        \sigma_x^2 & \sigma_{xy} \\
-        \sigma_{xy} & \sigma_y^2
-        \end{pmatrix}
-        \cdot
-        \begin{pmatrix}
-                   \partial_{x} f\\
-                   \partial_{y}f
-          \end{pmatrix}
-          = (\partial_x f)^2  \sigma_x^2 + (\partial_y f )^2  \sigma_y^2 + 2 \partial_x \partial_y \sigma_{x,y} f
-$$
-
-Diese Form ist auch als  Gaußsche Fehleforpflanzung bekannt.
-
-## Schätzen
-
-Schätzer werden benutzt um unbekannte Parameter der Grundgesamtheit die einer Messung
-zugrunde liegt zu berechnen.  Seien beispielsweise Werte einer Messung normalverteilt mit
-unbekannten Parametern so lassen sich bei ausreichender Stichprobengröße Varianz und Mittelwert
-der Verteilung schätzen. Es gibt verschiedene kenngrößen um Schätzer zu kategorisieren.
-
-Sei $\hat \theta$ der geschätzte Wert zum wahren Wert $\theta$.
-
- * Der Schätzer heißt Erwartungstreu wenn $E[\hat \theta]  = \theta$
- * Der Schätzer hat den  Bias wenn  $B(\theta) = E[\hat \theta]   -  \theta$
- * Den $MSE(\theta) = E[(\hat \theta - \theta)^2] = B(\hat \theta)^2 + Var(\hat \theta)$
-
-So ist das arithmethische Mittels beispielsweise ein erwartungstreuer Schätzer für den wahren Mittelwert.
-Die einfache Formel für die Varianz dagegen ist verzerrt. Weshalb man häufig die korrigierte Stichprobenvarianz
-$S^2$ benutzt welche wieder Erwartungstreu ist.
-
- $$
-S^2 = \frac {1}{n-1} \sum_{i = 0}^n (x_i - \bar x)
- $$
-
-### Kleinste Quadrate Methode
-
- Betrachtet man seine Messungen $x^{(1)}, x^{(2)}, x^{(3)} \ldots$ als Realisierung von Zufallsvariablen und möchte daraus
- die Parameter aus dem Parametervektor $a$ eines funktionalen Zusammenhangs $y = f(x^{(1)}, x^{(2)},\ldots; a) \in \mathbb{R}^N$
- schätzen. Hier minimiert man einfach die Summe der Quadratabweichungen oder auch Residuen.
-
-$$
-S = \min_a \sum_i (y_i - f_i(x^{(1)}, x^{(2)},\ldots; a) )^2 = \min_a \sum r_i^2 = \min_a \| y - f \|_2^2
-$$
-
-Um das Residuum zu minimieren muss jede Komponente des Gradientens 0 werden
-$$
-\frac{\partial}{\partial a_j} \sum (y_i - f_i(x^{(1)}, x^{(2)},\ldots; a))^2 = - 2 \sum r_i \frac{\partial f_i(x^{(1)}, x^{(2)},\ldots; a)}{\partial a_j} \stackrel{!}{=} 0 \text{für} j = 1 \ldots m
-$$
-
-Die Minimierung kann aber über beliebiges Verfahren erfolgen. Der Vorteil dieser Methode liegt darin, dass
-man keine Annahme über die Verteilung der Zufallsvariablen machen muss.
-
-#### Linear Least Squares
-
-Wichtiger Spezialfall sind jedoch Lineare Modelle. Die sich häufig analytisch lösen lassen.
-Also Funktionen $f = \sum_j a_j \phi_j(x^{(1)},x^{(2)}, \ldots)$ die nur linear in den Parametern $a_j$ sind.
-Die Ableitung wird so zu
-$$
-X_{k,i} = \frac{\partial f_i(x^{(1)}, x^{(2)},\ldots; a)}{\partial a_k} = \phi_{k,i}(x^{(1)}, x^{(2)}, \ldots)
-$$
-
-Setzt man diesen Spaß in die Gleichung der Ableitung ein kommt man auf die
-wichtige Matrixgleichung als Schätzer für $a$
-
-$$
-(X^T X )^{-1}  X^T y  = \hat a
-$$
-
-Auch die Quadratsumme der Residuen lässt sich in Matrixform schreiben und darin der
-Schätzer einsetzen.
-
-$$
-S = y^T y  - 2 a^T  A^T y + a^T A^T A a
-$$
-
-$$
-\hat S = y^T y - \hat{a}^T A^T y
-$$
-
-Die Fehler auf die geschätzten Paramater $a$ erhält wie zuvor aus der Transfomation der Kovarianzmatrix
-$V_y$ die wir aus unserer Messung gewinnen können.
-
-$$
-V_{\hat a} = (X^T X )^{-1}  X^T V_y ( (X^T X )^{-1}  X^T)^T
-$$
-
-Ein wichtiger Spezialfall tritt ein, wenn es keine Korrelationen zwischen den Werten gibt. Dann
-wird die Matrix $V_y$ Diagonal $V_y = \sigma^2 \mathbb{1}$ und
-
-$$
-V_{\hat a} =  (X^T X )^{-1} \sigma^2.
-$$
-
-
-#### Weighted Linear Least Squares
-
-Manchmal ist es wünschenswert verschiedene Messungen seiner Stichprobe unterschiedlich zu gewichten.
-Im Optimalfall nimmt man dafür den Kehrwert der Varianz der Messung. Die ist in der Praxis aber eher
-selten bekannt. Aber häufig proportional zum gemessenen Wert.
-
-######  Beispielrechnung aus der Übung
-
-Gegeben sei das Modell $f = a_1 \cos(x) + a_2 \sin(x)$ wobei $f \in \mathbb{R}^N$ und $N$ Messungen.
-Die Residuen  $\| f- y \|_2^2$ sollen minimiert werden. Zunächst in Komponentenschreibweise
-
-$$
-\sum_i (f_i(x,  a) - y_i)^2 = \sum_i (a_1 \cos(x_i) + a_2\sin(x_i) - y_i)^2
-$$
-
-Das Residuum $r_i  = a_1 \cos(x_i) + a_2\sin(x_i) - y_i$ lässt sich in Matrixschreibweise hinschreiben als
-$r = X a - y$. Mit der Matrix
-
-$$
-X = \begin{pmatrix}
-    \cos(x_1) & \sin(x_1) \\
-    \cos(x_2) & \sin(x_2) \\
-    \vdots & \vdots \\
-  \end{pmatrix}
-$$
-
-.... TODO
-
-### Maximum Likelihood Methode
-
-Man hat $N$ unabhängige  Messungen von Variablen (Vektoren) $X_i$ als Realisierung einer Zufallsvariable mit
-bekannter Wahrscheinlichkeitsdichte $f(X_i, a)$ die von dem Parametervektor a abhängt.
-Bei unabhängigen Ereignissen/Messungen ist die Wahrscheinlichkeit $P(X_i \cap X_j) = P(X_i)P(X_j)$
-Mit der entsrpechenden Wahrscheinlichkeitsdichte wird die sogennate Likelihood-Funktion
- $L(a)$ definiert als
-
- $$
- L(a) = f(X_1, a) \cdot f(X_2, a) \ldots f(X_N, a)
- $$
-
-
-Die Behauptung ist nun, dass die beste Schätzung für $a$ die Likelihood-Funktion maximiert.
-Da diese Form der Likelihood aber etwas nervig zu optimieren ist, logarithmiert man das ganze.
-$$
-l(a) = \ln(L(a)) = \sum_i \ln(f(X_i, a))
-$$
-Dieser Ausdruck ist maschinell wesentlich einfacher zu optimieren
-
-### Fehler des geschätzen Wertes.
-Nähert man die LogLikelihood-Funktion in der Nähe des geschätzen Wertes $\hat a$ergibt sich in
-zweiter Ordnung eine Parabel.
-
-$$
-l(a) = l(\hat a) + \frac{1}{2}  \cdot \frac{d^2 l}{d^2a} \Bigr|_{\hat a}  (a- \hat a)^2 + \ldots
-$$
-
-Man beachte das $\frac{dl}{da}$ an der Stelle $\hat a$ per Definition gleich 0 seien muss.
-Exponentiert man das ganze wieder erkennt man, dass die Likelihood-Funktion zu der LogLikelihood-Funktion
-tatsächlich Normalverteilt an dieser Stelle ist. Die Varianz lässt sich dann Ablesen zu
-
-$$
-\sigma_{\hat a }^2 = \frac{d^2 l}{d^2a} \Bigr|_{\hat a}
-$$
-
-
-#### Ein Beispiel mit der Poisson Verteilung
-Angenommen die Messungen folgen einer Poissonverteilung mit unbekanntem Parameter $\lambda$ und
-es werden die Werte 13,8 und 9 gemessen. Einsetzen in die Likelihood-Funktion ergibt
-
-$$
-L(\lambda) =  f(12, \lambda)f(8,\lambda)f(9,\lambda) = \frac{\lambda^{13}}{13!} e^{- \lambda} \frac{\lambda^{8}}{8!} e^{- \lambda} \frac{\lambda^{9}}{9!} e^{- \lambda}.
-$$
-
-Das Maximum ergibt sich durch Ableiten
-
-$$
-\frac{\partial}{\partial \lambda} L(\lambda)  = \frac{1}{13!8!9!} e^{-3\lambda} \lambda^{29}(30 - 3\lambda) \stackrel{!}{=} 0 \implies \hat  \lambda = 10
-$$
-
-Wie erwartet ist $\lambda$ der Mittelwert der gemessenen Werte. Welcher bei einer Poissonverteilung
-natürlich allgemein auch eine Reele Zahl seien darf.
-
-Das ganze funktioniert äquivalent mit der LogLikelihood-Funktion $l(\lambda) = \ln(L(\lambda))$
-
-$$
-l(\lambda) =  \ln(f(12, \lambda)f(8,\lambda)f(9,\lambda)) = \ln(f(12,\lambda)) + \ln(f(8,\lambda)) + \ln(f(9,\lambda))
-$$
-
-und deren Ableitung
-
-$$
-\frac{\partial}{\partial \lambda} l(\lambda)  = -3 +  \frac{30}{\lambda} \stackrel{!}{=} 0 \implies \hat  \lambda = 10
-$$
-
-![](./likelihood.png)
 
 
 ## Statistische Tests
