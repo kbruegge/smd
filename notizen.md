@@ -13,8 +13,8 @@ $$
 Fließkommazahlen werden üblicherweise im IEEE754 Standard gespeichert.
 Das Format erlaubt nur $b\in \{ 2, 10 \}$. In alle landläufigen Systemen ist die
 Basis gleich 2.
-Das Format erzwingt die **eindeutige** Darstellung der Zahlen in dem die
-Darstellung mit dem kleinsten Exponenten  gewählt wird.
+Der Standard erzwingt die **eindeutige** Darstellung der Zahlen in dem die
+Darstellung mit dem kleinsten Exponenten gewählt wird.
 
 Nach IEEE754 ist der Exponent immer positiv. Zum Exponent mit N Bits wird bei jeder Rechnung
 einfach der Bias von $2^{N-1} - 1$ hinzuaddiert. Auf einen 8 Bit
@@ -608,6 +608,7 @@ $$
 Dieser Ausdruck ist maschinell wesentlich einfacher zu optimieren
 
 ### Fehler des geschätzen Wertes.
+
 Nähert man die LogLikelihood-Funktion in der Nähe des geschätzen Wertes $\hat a$ergibt sich in
 zweiter Ordnung eine Parabel.
 
@@ -620,11 +621,14 @@ Exponentiert man das ganze wieder erkennt man, dass die Likelihood-Funktion zu d
 tatsächlich Normalverteilt an dieser Stelle ist. Die Varianz lässt sich dann Ablesen zu
 
 $$
-\sigma_{\hat a }^2 = \frac{d^2 l}{d^2a} \Bigr|_{\hat a}
+\sigma_{\hat a }^2 = (\frac{d^2 l}{d^2a} \Bigr|_{\hat a})^{-1}
 $$
+
+Hat man mehrere Parameter ist die Kovarianzmatrix einfach das Inverse der Hesse Matrix.
 
 
 #### Ein Beispiel mit der Poisson Verteilung
+
 Angenommen die Messungen folgen einer Poissonverteilung mit unbekanntem Parameter $\lambda$ und
 es werden die Werte 13,8 und 9 gemessen. Einsetzen in die Likelihood-Funktion ergibt
 
