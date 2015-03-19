@@ -233,7 +233,7 @@ hinweisen.
 Beschreibt die Wahrscheinlichkeit $k$ Erfolge eines Bernouli Prozesses mit der Erfolgswahrscheinlichkeit $p$
 und $n$ Wiederholungen zu Messen
 
-* Dichtefunktion $f(k) = \begin{pmatrix} n \\ k \end{pmatrix} p^k(1-p)^{n-k} {k!}$
+* Dichtefunktion $f(k) = \begin{pmatrix} n \\ k \end{pmatrix} p^k(1-p)^{n-k}$
 * Erwartungswert $E(X) = np$
 * Varianz $Var(X) = np(1-p)$
 
@@ -549,11 +549,6 @@ selten bekannt. Aber häufig proportional zum gemessenen Wert.
 Die bei der Schätzung auftretende Matrix $(X^T X)$ ist eventuell schlecht konditioniert oder im
 Extremfall sogar singulär. Um das zu vermeiden wird nicht direkt die Summe der Residuen minimiert
 sondern noch eine weitere Nebenbedingung gestellt die durch eine Matrix $\Gamma$ ausgedrückt wird.
-
-$$
-S = (y - aX)^T (y - aX)  + \Gamma
-$$
-
 Die Lösungsgleichung für die Paramater $a$ wird dann zu
 
 $$
